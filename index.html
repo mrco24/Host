@@ -31,6 +31,34 @@
             border: none;
             cursor: pointer;
         }
+        .invoice {
+            border: 1px solid #000;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .invoice h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .invoice h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .invoice .details {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .invoice table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .invoice table, .invoice th, .invoice td {
+            border: 1px solid black;
+        }
+        .invoice th, .invoice td {
+            padding: 10px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -96,10 +124,6 @@
             container.removeChild(button.parentElement);
         }
 
-        function getRandomInvoiceNumber() {
-            return Math.floor(Math.random() * 1000000);
-        }
-
         document.getElementById('invoice-form').addEventListener('submit', function(event) {
             event.preventDefault();
             var name = document.getElementById('name').value;
@@ -110,14 +134,12 @@
             var quantities = document.querySelectorAll('.quantity');
 
             var date = new Date().toLocaleDateString();
-            var invoiceNumber = getRandomInvoiceNumber();
             var invoiceContent = `
                 <div class="invoice">
                     <h2>Mehedi By Mimi</h2>
                     <h3>Invoice</h3>
                     <div class="details">
                         <p><strong>Date:</strong> ${date}</p>
-                        <p><strong>Invoice Number:</strong> ${invoiceNumber}</p>
                         <p><strong>Name:</strong> ${name}</p>
                         <p><strong>Number:</strong> ${number}</p>
                         <p><strong>Address:</strong> ${address}</p>
@@ -156,11 +178,49 @@
                 </table>
                 </div>`;
 
-            // Redirect to the invoice page
-            window.location.href = 'https://mrco24.github.io/invoic';
-
-            // You can also open the invoice in a new tab using window.open()
-            // window.open('https://mrco24.github.io/invoic', '_blank');
+            var newWindow = window.open('', '_blank');
+            newWindow.document.open();
+            newWindow.document.write(`
+                <html>
+                <head>
+                    <title>Invoice</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            margin: 20px;
+                        }
+                        .invoice {
+                            border: 1px solid #000;
+                            padding: 20px;
+                            margin-top: 20px;
+                        }
+                        .invoice h2, .invoice h3 {
+                            text-align: center;
+                            margin-bottom: 20px;
+                        }
+                        .invoice .details {
+                            text-align: left;
+                            margin-bottom: 20px;
+                        }
+                        .invoice table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        .invoice table, .invoice th, .invoice td {
+                            border: 1px solid black;
+                        }
+                        .invoice th, .invoice td {
+                            padding: 10px;
+                            text-align: left;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${invoiceContent}
+                </body>
+                </html>
+            `);
+            newWindow.document.close();
         });
     </script>
 </body>
