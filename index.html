@@ -97,8 +97,6 @@
         <button type="submit">Submit</button>
     </form>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script>
         function addProduct() {
             var container = document.getElementById('products-container');
@@ -180,15 +178,49 @@
                 </table>
                 </div>`;
 
-            // Convert HTML to PDF
-            html2canvas(document.querySelector('.invoice')).then(canvas => {
-                var pdf = new jsPDF();
-                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
-                pdf.save('invoice.pdf');
-            });
-            
-            // Clear form fields after generating PDF
-            document.getElementById('invoice-form').reset();
+            var newWindow = window.open('', '_blank');
+            newWindow.document.open();
+            newWindow.document.write(`
+                <html>
+                <head>
+                    <title>Invoice</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            margin: 20px;
+                        }
+                        .invoice {
+                            border: 1px solid #000;
+                            padding: 20px;
+                            margin-top: 20px;
+                        }
+                        .invoice h2, .invoice h3 {
+                            text-align: center;
+                            margin-bottom: 20px;
+                        }
+                        .invoice .details {
+                            text-align: left;
+                            margin-bottom: 20px;
+                        }
+                        .invoice table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        .invoice table, .invoice th, .invoice td {
+                            border: 1px solid black;
+                        }
+                        .invoice th, .invoice td {
+                            padding: 10px;
+                            text-align: left;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${invoiceContent}
+                </body>
+                </html>
+            `);
+            newWindow.document.close();
         });
     </script>
 </body>
