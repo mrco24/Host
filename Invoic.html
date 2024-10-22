@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .product-item {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .invoice {
+            border: 1px solid #000;
+            padding: 20px;
+            margin-top: 20px;
+            position: relative;
+        }
+        .invoice h2 {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .invoice h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .invoice .details {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .invoice table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .invoice table, .invoice th, .invoice td {
+            border: 1px solid black;
+        }
+        .invoice th, .invoice td {
+            padding: 10px;
+            text-align: left;
+        }
+        .company-details {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .company-details p {
+            margin: 0;
+        }
+        .company-logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Invoice Form</h1>
+    <form id="invoice-form">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="number">Number:</label>
+            <input type="text" id="number" name="number" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+        </div>
+        <div id="products-container">
+            <div class="product-item">
+                <label for="product">Select Product:</label>
+                <select class="product" name="product" required>
+                    <option value="organic_mehedi" data-price="130">Organic Mehedi - 130 TK</option>
+                    <option value="nail_mehedi" data-price="110">Nail Mehedi - 110 TK</option>
+                    <option value="marwardi_mehedi" data-price="450">Marwardi Mehedi - 450 TK</option>
+                    <option value="hair_hena" data-price="280">Hair Hena - 280 TK</option>
+                    <option value="inside_dhaka" data-price="60">Inside Dhaka (Delivery Charge) - 60 TK</option>
+                    <option value="outside_dhaka" data-price="100">Outside Dhaka (Delivery Charge) - 100 TK</option>
+                </select>
+                <label for="quantity">Quantity:</label>
+                <input type="number" class="quantity" name="quantity" min="1" value="1" required>
+                <button type="button" onclick="removeProduct(this)">Remove</button>
+            </div>
+        </div>
+        <button type="button" onclick="addProduct()">Add Another Product</button>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        function addProduct() {
+            var container = document.getElementById('products-container');
+            var productItem = document.createElement('div');
+            productItem.className = 'product-item';
+            productItem.innerHTML = `
+                <label for="product">Select Product:</label>
+                <select class="product" name="product" required>
+                    <option value="organic_mehedi" data-price="130">Organic Mehedi - 130 TK</option>
+                    <option value="nail_mehedi" data-price="110">Nail Mehedi - 110 TK</option>
+                    <option value="marwardi_mehedi" data-price="450">Marwardi Mehedi - 450 TK</option>
+                    <option value="hair_hena" data-price="280">Hair Hena - 280 TK</option>
+                    <option value="inside_dhaka" data-price="60">Inside Dhaka (Delivery Charge) - 60 TK</option>
+                    <option value="outside_dhaka" data-price="100">Outside Dhaka (Delivery Charge) - 100 TK</option>
+                </select>
+                <label for="quantity">Quantity:</label>
+                <input type="number" class="quantity" name="quantity" min="1" value="1" required>
+                <button type="button" onclick="removeProduct(this)">Remove</button>
+            `;
+            container.appendChild(productItem);
+        }
+
+        function removeProduct(button) {
+            var container = document.getElementById('products-container');
+            container.removeChild(button.parentElement);
+        }
+
+        document.getElementById('invoice-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var name = document.getElementById('name').value;
+            var number = document.getElementById('number').value;
+            var address = document.getElementById('address').value;
+
+            var products = document.querySelectorAll('.product');
+            var quantities = document.querySelectorAll('.quantity');
+
+            var date = new Date().toLocaleDateString();
+            var invoiceContent = `
+                <div class="invoice">
+                    <img src="https://raw.githubusercontent.com/mrco24/invoic/main/2vDzib01.svg" alt="Company Logo" class="company-logo">
+                    <div class="company-details">
+                        <p>167/2 Blue Moon Tower</p>
+                        <p>ECB Chattar, Mirpur, Dhaka- 1216, Dhaka</p>
+                        <p>01999678618</p>
+                        <p>mehendibymimi@gmail.com</p>
+                    </div>
+                    <h2>Mehendi By Mimi</h2>
+                    <h3>Invoice/ Bill</h3>
+                    <div class="details">
+                        <p><strong>Date:</strong> ${date}</p>
+                        <p><strong>Bill To:</strong></p>
+                        <p><strong>Name:</strong> ${name}</p>
+                        <p><strong>Number:</strong> ${number}</p>
+                        <p><strong>Address:</strong> ${address}</p>
+                    </div>
+                    <table>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>`;
+
+            var totalPrice = 0;
+
+            products.forEach(function(product, index) {
+                var productText = product.selectedOptions[0].text;
+                var price = product.selectedOptions[0].getAttribute('data-price');
+                var quantity = quantities[index].value;
+                var productTotal = price * quantity;
+
+                invoiceContent += `
+                    <tr>
+                        <td>${productText}</td>
+                        <td>${price} TK</td>
+                        <td>${quantity}</td>
+                        <td>${productTotal} TK</td>
+                    </tr>`;
+                totalPrice += productTotal;
+            });
+
+            invoiceContent += `
+                    <tr>
+                        <td colspan="3"><strong>Total Price</strong></td>
+                        <td><strong>${totalPrice} TK</strong></td>
+                    </tr>
+                </table>
+                <button onclick="window.print()">Download Invoice</button>
+                </div>`;
+
+            var newWindow = window.open('', '_blank');
+            newWindow.document.open();
+            newWindow.document.write(`
+                <html>
+                <head>
+                    <title>Invoice</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            margin: 20px;
+                        }
+                        .invoice {
+                            border: 1px solid #000;
+                            padding: 20px;
+                            margin-top: 20px;
+                            position: relative;
+                        }
+                        .invoice h2, .invoice h3 {
+                            text-align: center;
+                            margin-bottom: 20px;
+                        }
+                        .invoice .details {
+                            text-align: left;
+                            margin-bottom: 20px;
+                        }
+                        .invoice table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        .invoice table, .invoice th, .invoice td {
+                            border: 1px solid black;
+                        }
+                        .invoice th, .invoice td {
+                            padding: 10px;
+                            text-align: left;
+                        }
+                        button {
+                            padding: 10px 20px;
+                            background-color: #28a745;
+                            color: #fff;
+                            border: none;
+                            cursor: pointer;
+                            display: block;
+                            margin: 20px auto;
+                        }
+                        .company-details {
+                            text-align: left;
+                            margin-bottom: 20px;
+                        }
+                        .company-details p {
+                            margin: 0;
+                        }
+                        .company-logo {
+                            position: absolute;
+                            top: 20px;
+                            right: 20px;
+                            width: 100px;
+                            height: auto;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${invoiceContent}
+                </body>
+                </html>
+            `);
+            newWindow.document.close();
+        });
+    </script>
+</body>
+</html>
