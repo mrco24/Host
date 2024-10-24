@@ -76,29 +76,47 @@
             dorkContainerDiv.innerHTML = ''; // Clear previous dorks
 
             const dorkCategories = {
-                "Open Redirect": [
-                    'inurl:url=https site:target.com',
-                    'inurl:url=http site:target.com',
-                    'inurl:u=https site:target.com',
-                    'inurl:u=http site:target.com',
-                    'inurl:redirect?https site:target.com',
-                    'inurl:redirect?http site:target.com',
-                    'inurl:redirect=https site:target.com',
-                    'inurl:redirect=http site:target.com',
-                    'inurl:link=http site:target.com',
-                    'inurl:link=https site:target.com',
-                    'inurl:redirectUrl=http site:target.com'
+                "File Upload": [
+                    'site:target.comintitle:file upload manager v1.3',
+                    'Allowed file types: png gif jpg txt html. site:target.com',
+                    'Allowed file types: png gif jpg txt html. site:target.com',
+                    'Allowed file types: png gif jpg txt html. site:target.com',
+                    'Allowed file types: png gif jpg txt html. site:target.com',
+                    'site:target.com inurl:examples/uploadbutton.html',
+                    'site:target.com intitle:"index" of "resume" .doc',
+                    'site:target.com intitle:"index" of "CV" .doc',
+                    'site:target.com intitle:"index" of "upload" .doc',
+                    'site:target.com intitle:"index" of "uploads" .doc',
+                    'site:target.com intitle:"index" of "upload" "resume" .doc'
                  ],
                 "Domain": [
-                    'site:target.com www'
-                    'site :*.*.target.com'
-                    'site:target.com -www'
-                    'site:target.com intitle:”test” -support'
-                    'site:target.com ext:php | ext:html'
-                    'site:subdomain.target.com'
-                    'site:target.com inurl:auth'
-                    'site:target.com inurl:dev'
-                    'site:target.com inurl:api'
+                    'site:target.com www',
+                    'site :*.*.target.com',
+                    'site:target.com -www',
+                    'site:target.com intitle:”test” -support',
+                    'site:target.com ext:php | ext:html',
+                    'site:subdomain.target.com',
+                    'site:target.com inurl:auth',
+                    'site:target.com inurl:dev',
+                    'site:target.com inurl:api',
+			
+			    ],
+                "Sql Injection Parameter Extension Find Dork": [
+                    'site:target.com filetype:php',
+                    'site:target.com filetype:aspx',
+                    'site:target.com filetype:asp',
+                    'site:target.com filetype:swf',
+                    'site:target.com filetype:wsdl',
+                    'site:target.com ext:jsp',
+                    'site:*.target.com filetype:php',
+                    'site:*.target.com filetype:aspx',
+                    'site:*.target.com filetype:asp',
+                    'site:*.target.com filetype:swf',
+                    'site:*.target.com filetype:wsdl',
+                    'site:*.target.com ext:jsp',
+                    'site:target.com inurl:.php?id=',
+                    'site:target.com inurl:.php?user=',
+                    'site:target.com inurl:.php?book='
                 ],
                 "Find Login Page/phpmyadmin": [
                     'site:target.com inurl:phpmyadmin',
@@ -118,36 +136,19 @@
                     'site:target.com inurl:"/admin/index.php" OR inurl:"/admin/index.html"',
                     'site:target.com intitle:"login" intext:"admin area"',
                     'site:*.target.com intext:forgotpassword'
-                ],
-                "Sql Injection Parameter Extension Find Dork": [
-                    'site:target.com filetype:php',
-                    'site:target.com filetype:aspx',
-                    'site:target.com filetype:asp',
-                    'site:target.com filetype:swf',
-                    'site:target.com filetype:wsdl',
-                    'site:target.com ext:jsp',
-                    'site:*.target.com filetype:php',
-                    'site:*.target.com filetype:aspx',
-                    'site:*.target.com filetype:asp',
-                    'site:*.target.com filetype:swf',
-                    'site:*.target.com filetype:wsdl',
-                    'site:*.target.com ext:jsp',
-                    'site:target.com inurl:.php?id=',
-                    'site:target.com inurl:.php?user=',
-                    'site:target.com inurl:.php?book='
-                ],
-                "File Upload": [
-                    'site:target.comintitle:file upload manager v1.3',
-                    'Allowed file types: png gif jpg txt html. site:target.com',
-                    'Allowed file types: png gif jpg txt html. site:target.com',
-                    'Allowed file types: png gif jpg txt html. site:target.com',
-                    'Allowed file types: png gif jpg txt html. site:target.com',
-                    'site:target.com inurl:examples/uploadbutton.html',
-                    'site:target.com intitle:"index" of "resume" .doc',
-                    'site:target.com intitle:"index" of "CV" .doc',
-                    'site:target.com intitle:"index" of "upload" .doc',
-                    'site:target.com intitle:"index" of "uploads" .doc',
-                    'site:target.com intitle:"index" of "upload" "resume" .doc'
+           		],
+				"Open Redirect": [
+                    'inurl:url=https site:target.com',
+                    'inurl:url=http site:target.com',
+                    'inurl:u=https site:target.com',
+                    'inurl:u=http site:target.com',
+                    'inurl:redirect?https site:target.com',
+                    'inurl:redirect?http site:target.com',
+                    'inurl:redirect=https site:target.com',
+                    'inurl:redirect=http site:target.com',
+                    'inurl:link=http site:target.com',
+                    'inurl:link=https site:target.com',
+                    'inurl:redirectUrl=http site:target.com'
                 ],
                 "Find Important Stuff": [
                     'site:target.com filetype:txt',
