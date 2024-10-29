@@ -116,12 +116,16 @@
                     'site:*.target.com ext:jsp',
                     'site:target.com inurl:.php?id=',
                     'site:target.com inurl:.php?user=',
-                    'site:target.com inurl:.php?book='
+                    'site:target.com inurl:.php?book=',
+		    'site:.target.com inurl:? || inurl:&',
                 ],
                 "Find Login Page/phpmyadmin": [
                     'site:target.com inurl:phpmyadmin',
                     'site:target.com inurl:phpmyadmin/setup/',
                     'site:target.com inurl:/admin/login.php',
+		    'site:.target.com (intext:Login OR intext:Register or intext:Create Account)',
+                    'site:.target.com intext:Login',
+                    'site:.target.com AND (intitle:Login OR intitle:Register or intitle:Create An Account)',
                     'site:target.com inurl:login.php',
                     'site:target.com intext:"login"',
                     'site:target.com inurl:portal.php',
