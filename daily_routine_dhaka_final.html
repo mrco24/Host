@@ -1,11 +1,12 @@
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:Arial,sans-serif;background:#fff;color:#111;padding:16px;}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+.stat{background:#f5f5f2;border-radius:8px;padding:10px 12px;}
+.stat-label{font-size:11px;color:#888;margin-bottom:4px;}
+.stat-val{font-size:18px;font-weight:700;color:#111;}
+.stat-unit{font-size:11px;color:#888;}
 .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
 .toolbar button{font-size:13px;padding:7px 14px;border-radius:20px;border:1px solid #ccc;background:#fff;cursor:pointer;}
 .toolbar button.primary{background:#1D9E75;color:#fff;border-color:#1D9E75;}
@@ -24,11 +25,9 @@ body{font-family:Arial,sans-serif;background:#fff;color:#111;padding:16px;}
 .del-btn{opacity:0;position:absolute;right:0;top:6px;background:transparent;border:none;cursor:pointer;font-size:16px;color:#aaa;padding:2px 8px;transition:opacity .15s;}
 .del-btn:hover{color:#e00;}
 .section-label{font-size:10px;font-weight:700;letter-spacing:.07em;color:#999;padding:10px 0 3px 120px;text-transform:uppercase;cursor:pointer;}
-
-/* modal overlay — fixed inside page flow */
-.modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:999;align-items:center;justify-content:center;}
+.modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:center;justify-content:center;}
 .modal-wrap.open{display:flex;}
-.modal{background:#fff;border-radius:12px;border:1px solid #ddd;padding:20px;width:320px;max-width:92vw;box-shadow:0 4px 24px rgba(0,0,0,.15);}
+.modal{background:#fff;border-radius:12px;border:1px solid #ddd;padding:20px;width:320px;max-width:92vw;box-shadow:0 8px 32px rgba(0,0,0,.18);}
 .modal h3{font-size:15px;font-weight:700;margin-bottom:14px;color:#111;}
 .field{margin-bottom:10px;}
 .field label{display:block;font-size:12px;color:#666;margin-bottom:4px;}
@@ -42,8 +41,13 @@ body{font-family:Arial,sans-serif;background:#fff;color:#111;padding:16px;}
 .modal-btns button{font-size:13px;padding:7px 16px;border-radius:20px;border:1px solid #ccc;background:#fff;cursor:pointer;}
 .modal-btns .save{background:#1D9E75;color:#fff;border-color:#1D9E75;}
 </style>
-</head>
-<body>
+
+<div class="summary">
+  <div class="stat"><div class="stat-label">Bug hunting</div><div class="stat-val">২.৫ <span class="stat-unit">ঘণ্টা/দিন</span></div></div>
+  <div class="stat"><div class="stat-label">English skill</div><div class="stat-val">১ <span class="stat-unit">ঘণ্টা/দিন</span></div></div>
+  <div class="stat"><div class="stat-label">অফিস</div><div class="stat-val">৯ <span class="stat-unit">ঘণ্টা</span></div></div>
+  <div class="stat"><div class="stat-label">নামাজ</div><div class="stat-val">৫ <span class="stat-unit">ওয়াক্ত</span></div></div>
+</div>
 
 <div class="toolbar">
   <button class="primary" onclick="addBlock()">+ নতুন ব্লক</button>
@@ -52,7 +56,6 @@ body{font-family:Arial,sans-serif;background:#fff;color:#111;padding:16px;}
 
 <div id="timeline"></div>
 
-<!-- Modal -->
 <div class="modal-wrap" id="modal-wrap">
   <div class="modal">
     <h3 id="modal-title">ব্লক এডিট করুন</h3>
@@ -113,12 +116,7 @@ function render(){
       s.className='section-label';
       s.textContent=item.label;
       s.title='ক্লিক করে এডিট করুন';
-      (function(idx){
-        s.onclick=function(){
-          var v=prompt('সেকশনের নাম:',items[idx].label);
-          if(v){items[idx].label=v;render();}
-        };
-      })(i);
+      (function(idx){s.onclick=function(){var v=prompt('সেকশনের নাম:',items[idx].label);if(v){items[idx].label=v;render();}};})(i);
       tl.appendChild(s);
       continue;
     }
@@ -144,11 +142,7 @@ function render(){
     dot.style.background=c.dot;
     (function(idx){dot.onclick=function(){openModal(idx);};})(i);
     lc.appendChild(dot);
-    if(i<items.length-1){
-      var vl=document.createElement('div');
-      vl.className='vline';
-      lc.appendChild(vl);
-    }
+    if(i<items.length-1){var vl=document.createElement('div');vl.className='vline';lc.appendChild(vl);}
     wrap.appendChild(lc);
 
     var card=document.createElement('div');
@@ -160,19 +154,12 @@ function render(){
     ct.style.color=c.title;
     ct.textContent=item.title;
     card.appendChild(ct);
-    if(item.sub){
-      var cs=document.createElement('div');
-      cs.className='card-sub';
-      cs.style.color=c.sub;
-      cs.textContent=item.sub;
-      card.appendChild(cs);
-    }
+    if(item.sub){var cs=document.createElement('div');cs.className='card-sub';cs.style.color=c.sub;cs.textContent=item.sub;card.appendChild(cs);}
     wrap.appendChild(card);
 
     var db=document.createElement('button');
     db.className='del-btn';
     db.textContent='✕';
-    db.title='মুছে ফেলুন';
     (function(idx){db.onclick=function(e){e.stopPropagation();if(confirm('মুছে ফেলবেন?')){items.splice(idx,1);render();}};})(i);
     wrap.appendChild(db);
 
@@ -205,24 +192,18 @@ function renderColorPicker(){
   }
 }
 
-function closeModal(){
-  document.getElementById('modal-wrap').classList.remove('open');
-  editIdx=null;
-}
+function closeModal(){document.getElementById('modal-wrap').classList.remove('open');editIdx=null;}
 
 function saveBlock(){
   var t=document.getElementById('e-title').value.trim();
   if(!t){alert('শিরোনাম লিখুন');return;}
   var obj={type:'block',time:document.getElementById('e-time').value,title:t,sub:document.getElementById('e-sub').value,color:selColor};
-  if(editIdx===null){items.push(obj);}
-  else{items[editIdx]=obj;}
-  closeModal();
-  render();
+  if(editIdx===null){items.push(obj);}else{items[editIdx]=obj;}
+  closeModal();render();
 }
 
 function addBlock(){
-  editIdx=null;
-  selColor=0;
+  editIdx=null;selColor=0;
   document.getElementById('e-time').value='';
   document.getElementById('e-title').value='';
   document.getElementById('e-sub').value='';
@@ -238,5 +219,3 @@ function addSection(){
 
 render();
 </script>
-</body>
-</html>
