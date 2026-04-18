@@ -1,0 +1,210 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.timeline { padding: 1rem 0 2rem; }
+.block { display: flex; gap: 16px; margin-bottom: 6px; align-items: stretch; }
+.time-col { min-width: 80px; text-align: right; font-size: 12px; color: var(--color-text-tertiary); padding-top: 10px; flex-shrink: 0; }
+.line-col { display: flex; flex-direction: column; align-items: center; width: 20px; flex-shrink: 0; }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 12px; }
+.vline { width: 2px; flex: 1; min-height: 6px; background: var(--color-border-tertiary); margin-top: 2px; }
+.card { flex: 1; border-radius: var(--border-radius-md); padding: 8px 12px; margin-bottom: 2px; }
+.card-title { font-size: 13px; font-weight: 500; }
+.card-sub { font-size: 12px; margin-top: 2px; }
+.namaz { background: #E1F5EE; } .namaz .card-title { color: #085041; } .namaz .card-sub { color: #0F6E56; } .namaz-dot { background: #1D9E75; }
+.office { background: #E6F1FB; } .office .card-title { color: #0C447C; } .office .card-sub { color: #185FA5; } .office-dot { background: #378ADD; }
+.commute { background: #FBEAF0; } .commute .card-title { color: #72243E; } .commute .card-sub { color: #993556; } .commute-dot { background: #D4537E; }
+.skill { background: #EEEDFE; } .skill .card-title { color: #3C3489; } .skill .card-sub { color: #534AB7; } .skill-dot { background: #7F77DD; }
+.bug-main { background: #EF9F27; } .bug-main .card-title { color: #412402; } .bug-main .card-sub { color: #633806; }
+.rest { background: var(--color-background-secondary); } .rest .card-title { color: var(--color-text-primary); } .rest .card-sub { color: var(--color-text-secondary); } .rest-dot { background: #888780; }
+.legend { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 0 1.5rem 96px; }
+.leg-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--color-text-secondary); }
+.leg-dot { width: 8px; height: 8px; border-radius: 50%; }
+.section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; color: var(--color-text-tertiary); padding: 0.75rem 0 0.25rem 96px; text-transform: uppercase; }
+.badge { display: inline-block; font-size: 10px; font-weight: 500; background: #412402; color: #FAEEDA; border-radius: 4px; padding: 2px 6px; margin-left: 6px; vertical-align: middle; }
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 0 0 1.5rem; }
+.stat { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; }
+.stat-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 4px; }
+.stat-val { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+.stat-unit { font-size: 11px; color: var(--color-text-secondary); }
+</style>
+
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;">চূড়ান্ত রুটিন — সকালে Bug hunting, রাতে English</h2>
+
+<div class="summary">
+  <div class="stat"><div class="stat-label">Bug hunting</div><div class="stat-val">২.৫ <span class="stat-unit">ঘণ্টা/দিন</span></div></div>
+  <div class="stat"><div class="stat-label">English skill</div><div class="stat-val">১ <span class="stat-unit">ঘণ্টা/দিন</span></div></div>
+  <div class="stat"><div class="stat-label">অফিস</div><div class="stat-val">৯ <span class="stat-unit">ঘণ্টা</span></div></div>
+  <div class="stat"><div class="stat-label">নামাজ</div><div class="stat-val">৫ <span class="stat-unit">ওয়াক্ত</span></div></div>
+</div>
+
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:#1D9E75"></div> নামাজ</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#378ADD"></div> অফিস</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#D4537E"></div> যাতায়াত</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#EF9F27"></div> Bug hunting</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#7F77DD"></div> English skill</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#888780"></div> বিশ্রাম</div>
+</div>
+
+<div class="timeline">
+
+  <div class="section-label">ভোর — মূল income সেশন</div>
+
+  <div class="block">
+    <div class="time-col">৪:৩০</div>
+    <div class="line-col"><div class="dot namaz-dot"></div><div class="vline"></div></div>
+    <div class="card namaz">
+      <div class="card-title">ফজর নামাজ</div>
+      <div class="card-sub">দিন শুরু আল্লাহর স্মরণে</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="time-col">৪:৫০–৫:৩০</div>
+    <div class="line-col"><div class="dot rest-dot"></div><div class="vline"></div></div>
+    <div class="card rest">
+      <div class="card-title">একটু বিশ্রাম</div>
+      <div class="card-sub">হালকা ঘুম বা শুয়ে থাকুন, মাথা clear করুন</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="time-col">৫:৩০–৮:০০</div>
+    <div class="line-col"><div class="dot" style="background:#EF9F27"></div><div class="vline"></div></div>
+    <div class="card bug-main">
+      <div class="card-title">Bug hunting — সকালের সেশন <span class="badge">২.৫ ঘণ্টা</span></div>
+      <div class="card-sub">মস্তিষ্ক সবচেয়ে তাজা এই সময়ে — recon, testing, write-up করুন</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="time-col">৮:০০–৮:৫৫</div>
+    <div class="line-col"><div class="dot rest-dot"></div><div class="vline"></div></div>
+    <div class="card rest">
+      <div class="card-title">নাস্তা + প্রস্তুতি</div>
+      <div class="card-sub">গোসল, খাবার, অফিসের জন্য রেডি হওয়া</div>
+    </div>
+  </div>
+
+  <div class="section-label">যাতায়াত + অফিস</div>
+
+  <div class="block">
+    <div class="time-col">৯:০০–১০:০০</div>
+    <div class="line-col"><div class="dot commute-dot"></div><div class="vline"></div></div>
+    <div class="card commute">
+      <div class="card-title">অফিসে যাওয়া — ১ ঘণ্টা</div>
+      <div class="card-sub">পথে security podcast / writeup পড়ুন — bug hunting-এর ধারাবাহিকতা থাকবে</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="time-col">১০:০০–১২:৩০</div>
+    <div class="line-col"><div class="dot office-dot"></div><div class="vline"></div></div>
+    <div class="card office">
+      <div class="card-title">অফিস — সকালের কাজ</div>
+      <div class="card-sub">গুরুত্বপূর্ণ tasks আগে শেষ করুন</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="time-col">১২:৩০</div>
+    <div class="line-col"><div class="dot namaz-dot"></div><div class="vline"></div></div>
+    <div class="card namaz">
+      <div class="card-title">যোহর নামাজ</div>
+      <div class="card-sub">লাঞ্চ ব্রেকের সাথে মিলিয়ে পড়ুন</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="time-col">১:০০–২:০০</div>
+    <div class="line-col"><div class="dot rest-dot"></div><div class="vline"></div></div>
+    <div class="card rest">
+      <div class="card-title">লাঞ্চ ও বিশ্রাম</div>
+      <div class="card-sub">খাওয়া, একটু হাঁটা, চোখ বিশ্রাম দিন</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="time-col">২:০০–৪:৩০</div>
+    <div class="line-col"><div class="dot office-dot"></div><div class="vline"></div></div>
+    <div class="card office">
+      <div class="card-title">অফিস — বিকেলের কাজ</div>
+      <div class="card-sub">বাকি tasks শেষ করুন</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="time-col">৪:৩০</div>
+    <div class="line-col"><div class="dot namaz-dot"></div><div class="vline"></div></div>
+    <div class="card namaz">
+      <div class="card-title">আসর নামাজ</div>
+      <div class="card-sub">বের হওয়ার আগে পড়ে নিন</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="time-col">৪:৪৫–৭:০০</div>
+    <div class="line-col"><div class="dot office-dot"></div><div class="vline"></div></div>
+    <div class="card office">
+      <div class="card-title">অফিস শেষ + রওনা</div>
+      <div class="card-sub">কাজ গুছিয়ে বের হোন</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="time-col">৭:০০–৮:০০</div>
+    <div class="line-col"><div class="dot commute-dot"></div><div class="vline"></div></div>
+    <div class="card commute">
+      <div class="card-title">বাড়ি ফেরা — ১ ঘণ্টা</div>
+      <div class="card-sub">মাগরিব পথে মসজিদে পড়ুন</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="time-col">~৬:২৫</div>
+    <div class="line-col"><div class="dot namaz-dot"></div><div class="vline"></div></div>
+    <div class="card namaz">
+      <div class="card-title">মাগরিব নামাজ — পথে মসজিদে</div>
+      <div class="card-sub">ফেরার পথে থামুন, সূর্যাস্তের পরপরই পড়া উত্তম</div>
+    </div>
+  </div>
+
+  <div class="section-label">রাত — English + বিশ্রাম</div>
+
+  <div class="block">
+    <div class="time-col">৮:০০–৮:৩০</div>
+    <div class="line-col"><div class="dot rest-dot"></div><div class="vline"></div></div>
+    <div class="card rest">
+      <div class="card-title">রাতের খাবার + পরিবার</div>
+      <div class="card-sub">স্ক্রিন রেখে পরিবারের সাথে সময় কাটান</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="time-col">৮:৩০–৯:০০</div>
+    <div class="line-col"><div class="dot namaz-dot"></div><div class="vline"></div></div>
+    <div class="card namaz">
+      <div class="card-title">এশার নামাজ</div>
+      <div class="card-sub">English শুরুর আগে পড়ে নিন</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="time-col">৯:০০–১০:০০</div>
+    <div class="line-col"><div class="dot skill-dot"></div><div class="vline"></div></div>
+    <div class="card skill">
+      <div class="card-title">English skill — ১ ঘণ্টা</div>
+      <div class="card-sub">Writing / Speaking / Grammar — হালকা কাজ, ঘুমানোর আগে মস্তিষ্ক বেশি চাপ নেবে না</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="time-col">১০:০০–১০:৩০</div>
+    <div class="line-col"><div class="dot rest-dot"></div></div>
+    <div class="card rest">
+      <div class="card-title">রাতের রুটিন + ঘুম</div>
+      <div class="card-sub">পরদিনের bug hunting target ঠিক করুন, স্ক্রিন বন্ধ, ঘুম</div>
+    </div>
+  </div>
+
+</div>
