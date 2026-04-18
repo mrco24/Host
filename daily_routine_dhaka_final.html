@@ -1,210 +1,242 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-.timeline { padding: 1rem 0 2rem; }
-.block { display: flex; gap: 16px; margin-bottom: 6px; align-items: stretch; }
-.time-col { min-width: 80px; text-align: right; font-size: 12px; color: var(--color-text-tertiary); padding-top: 10px; flex-shrink: 0; }
-.line-col { display: flex; flex-direction: column; align-items: center; width: 20px; flex-shrink: 0; }
-.dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 12px; }
-.vline { width: 2px; flex: 1; min-height: 6px; background: var(--color-border-tertiary); margin-top: 2px; }
-.card { flex: 1; border-radius: var(--border-radius-md); padding: 8px 12px; margin-bottom: 2px; }
-.card-title { font-size: 13px; font-weight: 500; }
-.card-sub { font-size: 12px; margin-top: 2px; }
-.namaz { background: #E1F5EE; } .namaz .card-title { color: #085041; } .namaz .card-sub { color: #0F6E56; } .namaz-dot { background: #1D9E75; }
-.office { background: #E6F1FB; } .office .card-title { color: #0C447C; } .office .card-sub { color: #185FA5; } .office-dot { background: #378ADD; }
-.commute { background: #FBEAF0; } .commute .card-title { color: #72243E; } .commute .card-sub { color: #993556; } .commute-dot { background: #D4537E; }
-.skill { background: #EEEDFE; } .skill .card-title { color: #3C3489; } .skill .card-sub { color: #534AB7; } .skill-dot { background: #7F77DD; }
-.bug-main { background: #EF9F27; } .bug-main .card-title { color: #412402; } .bug-main .card-sub { color: #633806; }
-.rest { background: var(--color-background-secondary); } .rest .card-title { color: var(--color-text-primary); } .rest .card-sub { color: var(--color-text-secondary); } .rest-dot { background: #888780; }
-.legend { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 0 1.5rem 96px; }
-.leg-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--color-text-secondary); }
-.leg-dot { width: 8px; height: 8px; border-radius: 50%; }
-.section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; color: var(--color-text-tertiary); padding: 0.75rem 0 0.25rem 96px; text-transform: uppercase; }
-.badge { display: inline-block; font-size: 10px; font-weight: 500; background: #412402; color: #FAEEDA; border-radius: 4px; padding: 2px 6px; margin-left: 6px; vertical-align: middle; }
-.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 0 0 1.5rem; }
-.stat { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; }
-.stat-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 4px; }
-.stat-val { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
-.stat-unit { font-size: 11px; color: var(--color-text-secondary); }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,sans-serif;background:#fff;color:#111;padding:16px;}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.toolbar button{font-size:13px;padding:7px 14px;border-radius:20px;border:1px solid #ccc;background:#fff;cursor:pointer;}
+.toolbar button.primary{background:#1D9E75;color:#fff;border-color:#1D9E75;}
+.block{display:flex;gap:12px;margin-bottom:6px;align-items:stretch;position:relative;}
+.block:hover .del-btn{opacity:1;}
+.time-col{min-width:90px;text-align:right;padding-top:9px;flex-shrink:0;}
+.time-col input{width:90px;font-size:11px;color:#666;background:transparent;border:1px dashed #ddd;border-radius:4px;text-align:right;outline:none;padding:2px 4px;font-family:Arial,sans-serif;}
+.time-col input:focus{border-color:#999;color:#111;}
+.line-col{display:flex;flex-direction:column;align-items:center;width:18px;flex-shrink:0;}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:11px;cursor:pointer;}
+.vline{width:2px;flex:1;min-height:6px;background:#ddd;margin-top:2px;}
+.card{flex:1;border-radius:8px;padding:8px 12px;cursor:pointer;}
+.card:hover{filter:brightness(0.95);}
+.card-title{font-size:13px;font-weight:600;}
+.card-sub{font-size:12px;margin-top:2px;}
+.del-btn{opacity:0;position:absolute;right:0;top:6px;background:transparent;border:none;cursor:pointer;font-size:16px;color:#aaa;padding:2px 8px;transition:opacity .15s;}
+.del-btn:hover{color:#e00;}
+.section-label{font-size:10px;font-weight:700;letter-spacing:.07em;color:#999;padding:10px 0 3px 120px;text-transform:uppercase;cursor:pointer;}
+
+/* modal overlay — fixed inside page flow */
+.modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:999;align-items:center;justify-content:center;}
+.modal-wrap.open{display:flex;}
+.modal{background:#fff;border-radius:12px;border:1px solid #ddd;padding:20px;width:320px;max-width:92vw;box-shadow:0 4px 24px rgba(0,0,0,.15);}
+.modal h3{font-size:15px;font-weight:700;margin-bottom:14px;color:#111;}
+.field{margin-bottom:10px;}
+.field label{display:block;font-size:12px;color:#666;margin-bottom:4px;}
+.field input,.field textarea{width:100%;font-size:13px;padding:7px 10px;border-radius:8px;border:1px solid #ccc;background:#fff;color:#111;font-family:Arial,sans-serif;outline:none;}
+.field input:focus,.field textarea:focus{border-color:#1D9E75;}
+.field textarea{resize:vertical;min-height:54px;}
+.colors{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.color-opt{width:24px;height:24px;border-radius:50%;cursor:pointer;border:3px solid transparent;}
+.color-opt.selected{border-color:#111;}
+.modal-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:14px;}
+.modal-btns button{font-size:13px;padding:7px 16px;border-radius:20px;border:1px solid #ccc;background:#fff;cursor:pointer;}
+.modal-btns .save{background:#1D9E75;color:#fff;border-color:#1D9E75;}
 </style>
+</head>
+<body>
 
-<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;">চূড়ান্ত রুটিন — সকালে Bug hunting, রাতে English</h2>
-
-<div class="summary">
-  <div class="stat"><div class="stat-label">Bug hunting</div><div class="stat-val">২.৫ <span class="stat-unit">ঘণ্টা/দিন</span></div></div>
-  <div class="stat"><div class="stat-label">English skill</div><div class="stat-val">১ <span class="stat-unit">ঘণ্টা/দিন</span></div></div>
-  <div class="stat"><div class="stat-label">অফিস</div><div class="stat-val">৯ <span class="stat-unit">ঘণ্টা</span></div></div>
-  <div class="stat"><div class="stat-label">নামাজ</div><div class="stat-val">৫ <span class="stat-unit">ওয়াক্ত</span></div></div>
+<div class="toolbar">
+  <button class="primary" onclick="addBlock()">+ নতুন ব্লক</button>
+  <button onclick="addSection()">+ সেকশন</button>
 </div>
 
-<div class="legend">
-  <div class="leg-item"><div class="leg-dot" style="background:#1D9E75"></div> নামাজ</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#378ADD"></div> অফিস</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#D4537E"></div> যাতায়াত</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#EF9F27"></div> Bug hunting</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#7F77DD"></div> English skill</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#888780"></div> বিশ্রাম</div>
+<div id="timeline"></div>
+
+<!-- Modal -->
+<div class="modal-wrap" id="modal-wrap">
+  <div class="modal">
+    <h3 id="modal-title">ব্লক এডিট করুন</h3>
+    <div class="field"><label>সময়</label><input id="e-time" placeholder="যেমন: ৫:৩০–৮:০০"/></div>
+    <div class="field"><label>শিরোনাম</label><input id="e-title" placeholder="কাজের নাম"/></div>
+    <div class="field"><label>বিবরণ</label><textarea id="e-sub" placeholder="বিস্তারিত (ঐচ্ছিক)"></textarea></div>
+    <div class="field"><label>রং</label><div class="colors" id="color-picker"></div></div>
+    <div class="modal-btns">
+      <button onclick="closeModal()">বাতিল</button>
+      <button class="save" onclick="saveBlock()">সংরক্ষণ</button>
+    </div>
+  </div>
 </div>
 
-<div class="timeline">
+<script>
+var COLORS=[
+  {bg:'#E1F5EE',title:'#085041',sub:'#0F6E56',dot:'#1D9E75',label:'নামাজ'},
+  {bg:'#EF9F27',title:'#412402',sub:'#633806',dot:'#BA7517',label:'Bug hunting'},
+  {bg:'#E6F1FB',title:'#0C447C',sub:'#185FA5',dot:'#378ADD',label:'অফিস'},
+  {bg:'#FBEAF0',title:'#72243E',sub:'#993556',dot:'#D4537E',label:'যাতায়াত'},
+  {bg:'#EEEDFE',title:'#3C3489',sub:'#534AB7',dot:'#7F77DD',label:'English'},
+  {bg:'#F1EFE8',title:'#2C2C2A',sub:'#5F5E5A',dot:'#888780',label:'বিশ্রাম'},
+];
 
-  <div class="section-label">ভোর — মূল income সেশন</div>
+var items=[
+  {type:'section',label:'ভোর — মূল income সেশন'},
+  {type:'block',time:'৪:৩০',title:'ফজর নামাজ',sub:'দিন শুরু আল্লাহর স্মরণে',color:0},
+  {type:'block',time:'৪:৫০–৫:৩০',title:'বিশ্রাম',sub:'হালকা ঘুম, মাথা clear করুন',color:5},
+  {type:'block',time:'৫:৩০–৮:০০',title:'Bug hunting — সকালের সেশন',sub:'মস্তিষ্ক সবচেয়ে তাজা — recon, testing, write-up',color:1},
+  {type:'block',time:'৮:০০–৮:৫৫',title:'নাস্তা + প্রস্তুতি',sub:'গোসল, খাবার, রেডি হওয়া',color:5},
+  {type:'section',label:'যাতায়াত + অফিস'},
+  {type:'block',time:'৯:০০–১০:০০',title:'অফিসে যাওয়া',sub:'পথে security podcast শুনুন',color:3},
+  {type:'block',time:'১০:০০–১২:৩০',title:'অফিস — সকালের কাজ',sub:'গুরুত্বপূর্ণ tasks আগে শেষ করুন',color:2},
+  {type:'block',time:'১২:৩০',title:'যোহর নামাজ',sub:'লাঞ্চ ব্রেকের সাথে পড়ুন',color:0},
+  {type:'block',time:'১:০০–২:০০',title:'লাঞ্চ ও বিশ্রাম',sub:'খাওয়া, একটু হাঁটা',color:5},
+  {type:'block',time:'২:০০–৪:৩০',title:'অফিস — বিকেলের কাজ',sub:'বাকি tasks শেষ করুন',color:2},
+  {type:'block',time:'৪:৩০',title:'আসর নামাজ',sub:'বের হওয়ার আগে পড়ে নিন',color:0},
+  {type:'block',time:'৪:৪৫–৭:০০',title:'অফিস শেষ + রওনা',sub:'কাজ গুছিয়ে বের হোন',color:2},
+  {type:'section',label:'সন্ধ্যা + রাত'},
+  {type:'block',time:'৭:০০–৮:০০',title:'বাড়ি ফেরা',sub:'পথে মাগরিব মসজিদে পড়ুন',color:3},
+  {type:'block',time:'~৬:২৫',title:'মাগরিব নামাজ',sub:'ফেরার পথে মসজিদে',color:0},
+  {type:'block',time:'৮:০০–৮:৩০',title:'রাতের খাবার + পরিবার',sub:'স্ক্রিন বন্ধ রেখে সময় কাটান',color:5},
+  {type:'block',time:'৮:৩০–৯:০০',title:'এশার নামাজ',sub:'English শুরুর আগে পড়ুন',color:0},
+  {type:'block',time:'৯:০০–১০:০০',title:'English skill — ১ ঘণ্টা',sub:'Writing / Speaking / Grammar',color:4},
+  {type:'block',time:'১০:০০–১০:৩০',title:'রাতের রুটিন + ঘুম',sub:'পরদিনের target ঠিক করুন, ঘুম',color:5},
+];
 
-  <div class="block">
-    <div class="time-col">৪:৩০</div>
-    <div class="line-col"><div class="dot namaz-dot"></div><div class="vline"></div></div>
-    <div class="card namaz">
-      <div class="card-title">ফজর নামাজ</div>
-      <div class="card-sub">দিন শুরু আল্লাহর স্মরণে</div>
-    </div>
-  </div>
+var editIdx=null;
+var selColor=0;
 
-  <div class="block">
-    <div class="time-col">৪:৫০–৫:৩০</div>
-    <div class="line-col"><div class="dot rest-dot"></div><div class="vline"></div></div>
-    <div class="card rest">
-      <div class="card-title">একটু বিশ্রাম</div>
-      <div class="card-sub">হালকা ঘুম বা শুয়ে থাকুন, মাথা clear করুন</div>
-    </div>
-  </div>
+function render(){
+  var tl=document.getElementById('timeline');
+  tl.innerHTML='';
+  for(var i=0;i<items.length;i++){
+    var item=items[i];
+    if(item.type==='section'){
+      var s=document.createElement('div');
+      s.className='section-label';
+      s.textContent=item.label;
+      s.title='ক্লিক করে এডিট করুন';
+      (function(idx){
+        s.onclick=function(){
+          var v=prompt('সেকশনের নাম:',items[idx].label);
+          if(v){items[idx].label=v;render();}
+        };
+      })(i);
+      tl.appendChild(s);
+      continue;
+    }
+    var c=COLORS[item.color||0];
+    var wrap=document.createElement('div');
+    wrap.className='block';
 
-  <div class="block">
-    <div class="time-col">৫:৩০–৮:০০</div>
-    <div class="line-col"><div class="dot" style="background:#EF9F27"></div><div class="vline"></div></div>
-    <div class="card bug-main">
-      <div class="card-title">Bug hunting — সকালের সেশন <span class="badge">২.৫ ঘণ্টা</span></div>
-      <div class="card-sub">মস্তিষ্ক সবচেয়ে তাজা এই সময়ে — recon, testing, write-up করুন</div>
-    </div>
-  </div>
+    var tc=document.createElement('div');
+    tc.className='time-col';
+    var inp=document.createElement('input');
+    inp.value=item.time||'';
+    (function(idx,input){
+      input.onchange=function(){items[idx].time=this.value;};
+      input.onclick=function(e){e.stopPropagation();};
+    })(i,inp);
+    tc.appendChild(inp);
+    wrap.appendChild(tc);
 
-  <div class="block">
-    <div class="time-col">৮:০০–৮:৫৫</div>
-    <div class="line-col"><div class="dot rest-dot"></div><div class="vline"></div></div>
-    <div class="card rest">
-      <div class="card-title">নাস্তা + প্রস্তুতি</div>
-      <div class="card-sub">গোসল, খাবার, অফিসের জন্য রেডি হওয়া</div>
-    </div>
-  </div>
+    var lc=document.createElement('div');
+    lc.className='line-col';
+    var dot=document.createElement('div');
+    dot.className='dot';
+    dot.style.background=c.dot;
+    (function(idx){dot.onclick=function(){openModal(idx);};})(i);
+    lc.appendChild(dot);
+    if(i<items.length-1){
+      var vl=document.createElement('div');
+      vl.className='vline';
+      lc.appendChild(vl);
+    }
+    wrap.appendChild(lc);
 
-  <div class="section-label">যাতায়াত + অফিস</div>
+    var card=document.createElement('div');
+    card.className='card';
+    card.style.background=c.bg;
+    (function(idx){card.onclick=function(){openModal(idx);};})(i);
+    var ct=document.createElement('div');
+    ct.className='card-title';
+    ct.style.color=c.title;
+    ct.textContent=item.title;
+    card.appendChild(ct);
+    if(item.sub){
+      var cs=document.createElement('div');
+      cs.className='card-sub';
+      cs.style.color=c.sub;
+      cs.textContent=item.sub;
+      card.appendChild(cs);
+    }
+    wrap.appendChild(card);
 
-  <div class="block">
-    <div class="time-col">৯:০০–১০:০০</div>
-    <div class="line-col"><div class="dot commute-dot"></div><div class="vline"></div></div>
-    <div class="card commute">
-      <div class="card-title">অফিসে যাওয়া — ১ ঘণ্টা</div>
-      <div class="card-sub">পথে security podcast / writeup পড়ুন — bug hunting-এর ধারাবাহিকতা থাকবে</div>
-    </div>
-  </div>
+    var db=document.createElement('button');
+    db.className='del-btn';
+    db.textContent='✕';
+    db.title='মুছে ফেলুন';
+    (function(idx){db.onclick=function(e){e.stopPropagation();if(confirm('মুছে ফেলবেন?')){items.splice(idx,1);render();}};})(i);
+    wrap.appendChild(db);
 
-  <div class="block">
-    <div class="time-col">১০:০০–১২:৩০</div>
-    <div class="line-col"><div class="dot office-dot"></div><div class="vline"></div></div>
-    <div class="card office">
-      <div class="card-title">অফিস — সকালের কাজ</div>
-      <div class="card-sub">গুরুত্বপূর্ণ tasks আগে শেষ করুন</div>
-    </div>
-  </div>
+    tl.appendChild(wrap);
+  }
+}
 
-  <div class="block">
-    <div class="time-col">১২:৩০</div>
-    <div class="line-col"><div class="dot namaz-dot"></div><div class="vline"></div></div>
-    <div class="card namaz">
-      <div class="card-title">যোহর নামাজ</div>
-      <div class="card-sub">লাঞ্চ ব্রেকের সাথে মিলিয়ে পড়ুন</div>
-    </div>
-  </div>
+function openModal(idx){
+  editIdx=idx;
+  var item=items[idx];
+  document.getElementById('e-time').value=item.time||'';
+  document.getElementById('e-title').value=item.title||'';
+  document.getElementById('e-sub').value=item.sub||'';
+  selColor=item.color||0;
+  renderColorPicker();
+  document.getElementById('modal-title').textContent='ব্লক এডিট করুন';
+  document.getElementById('modal-wrap').classList.add('open');
+}
 
-  <div class="block">
-    <div class="time-col">১:০০–২:০০</div>
-    <div class="line-col"><div class="dot rest-dot"></div><div class="vline"></div></div>
-    <div class="card rest">
-      <div class="card-title">লাঞ্চ ও বিশ্রাম</div>
-      <div class="card-sub">খাওয়া, একটু হাঁটা, চোখ বিশ্রাম দিন</div>
-    </div>
-  </div>
+function renderColorPicker(){
+  var cp=document.getElementById('color-picker');
+  cp.innerHTML='';
+  for(var i=0;i<COLORS.length;i++){
+    var d=document.createElement('div');
+    d.className='color-opt'+(i===selColor?' selected':'');
+    d.style.background=COLORS[i].dot;
+    d.title=COLORS[i].label;
+    (function(ci){d.onclick=function(){selColor=ci;renderColorPicker();};})(i);
+    cp.appendChild(d);
+  }
+}
 
-  <div class="block">
-    <div class="time-col">২:০০–৪:৩০</div>
-    <div class="line-col"><div class="dot office-dot"></div><div class="vline"></div></div>
-    <div class="card office">
-      <div class="card-title">অফিস — বিকেলের কাজ</div>
-      <div class="card-sub">বাকি tasks শেষ করুন</div>
-    </div>
-  </div>
+function closeModal(){
+  document.getElementById('modal-wrap').classList.remove('open');
+  editIdx=null;
+}
 
-  <div class="block">
-    <div class="time-col">৪:৩০</div>
-    <div class="line-col"><div class="dot namaz-dot"></div><div class="vline"></div></div>
-    <div class="card namaz">
-      <div class="card-title">আসর নামাজ</div>
-      <div class="card-sub">বের হওয়ার আগে পড়ে নিন</div>
-    </div>
-  </div>
+function saveBlock(){
+  var t=document.getElementById('e-title').value.trim();
+  if(!t){alert('শিরোনাম লিখুন');return;}
+  var obj={type:'block',time:document.getElementById('e-time').value,title:t,sub:document.getElementById('e-sub').value,color:selColor};
+  if(editIdx===null){items.push(obj);}
+  else{items[editIdx]=obj;}
+  closeModal();
+  render();
+}
 
-  <div class="block">
-    <div class="time-col">৪:৪৫–৭:০০</div>
-    <div class="line-col"><div class="dot office-dot"></div><div class="vline"></div></div>
-    <div class="card office">
-      <div class="card-title">অফিস শেষ + রওনা</div>
-      <div class="card-sub">কাজ গুছিয়ে বের হোন</div>
-    </div>
-  </div>
+function addBlock(){
+  editIdx=null;
+  selColor=0;
+  document.getElementById('e-time').value='';
+  document.getElementById('e-title').value='';
+  document.getElementById('e-sub').value='';
+  document.getElementById('modal-title').textContent='নতুন ব্লক যোগ করুন';
+  renderColorPicker();
+  document.getElementById('modal-wrap').classList.add('open');
+}
 
-  <div class="block">
-    <div class="time-col">৭:০০–৮:০০</div>
-    <div class="line-col"><div class="dot commute-dot"></div><div class="vline"></div></div>
-    <div class="card commute">
-      <div class="card-title">বাড়ি ফেরা — ১ ঘণ্টা</div>
-      <div class="card-sub">মাগরিব পথে মসজিদে পড়ুন</div>
-    </div>
-  </div>
+function addSection(){
+  var v=prompt('সেকশনের নাম লিখুন:');
+  if(v){items.push({type:'section',label:v});render();}
+}
 
-  <div class="block">
-    <div class="time-col">~৬:২৫</div>
-    <div class="line-col"><div class="dot namaz-dot"></div><div class="vline"></div></div>
-    <div class="card namaz">
-      <div class="card-title">মাগরিব নামাজ — পথে মসজিদে</div>
-      <div class="card-sub">ফেরার পথে থামুন, সূর্যাস্তের পরপরই পড়া উত্তম</div>
-    </div>
-  </div>
-
-  <div class="section-label">রাত — English + বিশ্রাম</div>
-
-  <div class="block">
-    <div class="time-col">৮:০০–৮:৩০</div>
-    <div class="line-col"><div class="dot rest-dot"></div><div class="vline"></div></div>
-    <div class="card rest">
-      <div class="card-title">রাতের খাবার + পরিবার</div>
-      <div class="card-sub">স্ক্রিন রেখে পরিবারের সাথে সময় কাটান</div>
-    </div>
-  </div>
-
-  <div class="block">
-    <div class="time-col">৮:৩০–৯:০০</div>
-    <div class="line-col"><div class="dot namaz-dot"></div><div class="vline"></div></div>
-    <div class="card namaz">
-      <div class="card-title">এশার নামাজ</div>
-      <div class="card-sub">English শুরুর আগে পড়ে নিন</div>
-    </div>
-  </div>
-
-  <div class="block">
-    <div class="time-col">৯:০০–১০:০০</div>
-    <div class="line-col"><div class="dot skill-dot"></div><div class="vline"></div></div>
-    <div class="card skill">
-      <div class="card-title">English skill — ১ ঘণ্টা</div>
-      <div class="card-sub">Writing / Speaking / Grammar — হালকা কাজ, ঘুমানোর আগে মস্তিষ্ক বেশি চাপ নেবে না</div>
-    </div>
-  </div>
-
-  <div class="block">
-    <div class="time-col">১০:০০–১০:৩০</div>
-    <div class="line-col"><div class="dot rest-dot"></div></div>
-    <div class="card rest">
-      <div class="card-title">রাতের রুটিন + ঘুম</div>
-      <div class="card-sub">পরদিনের bug hunting target ঠিক করুন, স্ক্রিন বন্ধ, ঘুম</div>
-    </div>
-  </div>
-
-</div>
+render();
+</script>
+</body>
+</html>
