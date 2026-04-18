@@ -6,24 +6,31 @@
 <title>আমার দৈনিক রুটিন</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:Arial,sans-serif;background:#f0f0ed;color:#111;min-height:100vh;display:flex;justify-content:center;padding:32px 16px;}
-.page{width:100%;max-width:620px;}
+body{font-family:Arial,sans-serif;background:#f0f0ed;color:#111;min-height:100vh;padding:28px 20px;}
 
-h1{font-size:18px;font-weight:700;color:#111;margin-bottom:20px;text-align:center;}
+.page{max-width:1000px;margin:0 auto;}
 
-.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px;}
+h1{font-size:18px;font-weight:700;text-align:center;margin-bottom:20px;}
+
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
 .stat{background:#fff;border-radius:10px;padding:12px;border:1px solid #e5e5e2;text-align:center;}
 .stat-label{font-size:11px;color:#888;margin-bottom:4px;}
 .stat-val{font-size:17px;font-weight:700;color:#111;}
-.stat-unit{font-size:10px;color:#888;font-weight:400;display:block;}
+.stat-unit{font-size:10px;color:#888;font-weight:400;display:block;margin-top:1px;}
 
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
 .toolbar button{font-size:13px;padding:7px 16px;border-radius:20px;border:1px solid #ccc;background:#fff;cursor:pointer;color:#111;}
 .toolbar button.primary{background:#1D9E75;color:#fff;border-color:#1D9E75;}
 .toolbar button:hover{opacity:.85;}
 
-.section-label{font-size:10px;font-weight:700;letter-spacing:.08em;color:#999;padding:14px 0 5px 108px;text-transform:uppercase;}
-.section-label:hover{color:#555;cursor:pointer;}
+/* two column layout */
+.layout{display:flex;gap:20px;align-items:flex-start;}
+
+/* LEFT: timeline */
+.timeline-wrap{flex:1;min-width:0;}
+
+.section-label{font-size:10px;font-weight:700;letter-spacing:.08em;color:#999;padding:14px 0 5px 108px;text-transform:uppercase;cursor:pointer;}
+.section-label:hover{color:#555;}
 
 .block{display:flex;gap:10px;align-items:stretch;position:relative;}
 .block:hover .del-btn{opacity:1;}
@@ -38,18 +45,46 @@ h1{font-size:18px;font-weight:700;color:#111;margin-bottom:20px;text-align:cente
 .dot:hover{transform:scale(1.3);}
 .vline{width:2px;flex:1;min-height:8px;background:#ddd;margin-top:2px;}
 
-.card{flex:1;border-radius:9px;padding:9px 13px;cursor:pointer;margin-bottom:6px;transition:filter .15s;}
+.card{flex:1;border-radius:9px;padding:9px 13px;cursor:pointer;margin-bottom:6px;transition:filter .15s;position:relative;}
 .card:hover{filter:brightness(.96);}
+.card.active{outline:2.5px solid #1D9E75;outline-offset:1px;}
 .card-title{font-size:13px;font-weight:700;}
 .card-sub{font-size:12px;margin-top:3px;opacity:.8;}
+.note-count{display:inline-block;font-size:10px;background:rgba(0,0,0,.1);border-radius:8px;padding:1px 7px;margin-left:6px;vertical-align:middle;font-weight:400;}
 
-.del-btn{opacity:0;position:absolute;right:-26px;top:8px;background:transparent;border:none;cursor:pointer;font-size:15px;color:#bbb;padding:2px 4px;}
+.del-btn{opacity:0;position:absolute;right:-24px;top:8px;background:transparent;border:none;cursor:pointer;font-size:15px;color:#bbb;padding:2px 4px;}
 .del-btn:hover{color:#e00;}
 
-.modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:center;justify-content:center;}
-.modal-wrap.open{display:flex;}
-.modal{background:#fff;border-radius:14px;padding:22px;width:340px;max-width:94vw;box-shadow:0 8px 40px rgba(0,0,0,.18);}
-.modal h3{font-size:15px;font-weight:700;margin-bottom:16px;}
+/* RIGHT: notes panel */
+.notes-wrap{width:270px;flex-shrink:0;position:sticky;top:28px;}
+.notes-panel{background:#fff;border-radius:12px;border:1px solid #e5e5e2;padding:16px;}
+.np-header{margin-bottom:12px;}
+.np-title{font-size:13px;font-weight:700;color:#111;margin-bottom:2px;}
+.np-time{font-size:11px;color:#aaa;}
+.np-empty{font-size:12px;color:#ccc;text-align:center;padding:20px 0;}
+
+.note-item{background:#f8f8f6;border-radius:8px;padding:8px 10px;margin-bottom:7px;position:relative;padding-right:24px;}
+.note-text{font-size:12px;color:#333;white-space:pre-wrap;word-break:break-word;}
+.note-link{font-size:12px;color:#185FA5;word-break:break-all;text-decoration:none;}
+.note-link:hover{text-decoration:underline;}
+.note-date{font-size:10px;color:#ccc;margin-top:3px;}
+.note-del{position:absolute;top:5px;right:6px;background:none;border:none;cursor:pointer;font-size:12px;color:#ccc;}
+.note-del:hover{color:#e00;}
+
+.add-area{margin-top:10px;}
+.add-area textarea{width:100%;font-size:12px;padding:8px 10px;border-radius:8px;border:1px solid #ddd;resize:none;height:70px;font-family:Arial,sans-serif;outline:none;color:#111;background:#fff;}
+.add-area textarea:focus{border-color:#1D9E75;}
+.add-btns{display:flex;gap:6px;margin-top:7px;}
+.add-btns button{flex:1;font-size:12px;padding:7px 6px;border-radius:8px;border:1px solid #ddd;background:#fff;cursor:pointer;color:#111;font-weight:600;}
+.add-btns button:hover{opacity:.85;}
+.btn-note{background:#1D9E75 !important;color:#fff !important;border-color:#1D9E75 !important;}
+.btn-link{background:#185FA5 !important;color:#fff !important;border-color:#185FA5 !important;}
+
+/* edit modal */
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:9999;}
+.modal-overlay.open{display:flex;align-items:center;justify-content:center;}
+.modal-box{background:#fff;border-radius:14px;padding:22px;width:340px;max-width:92vw;box-shadow:0 8px 40px rgba(0,0,0,.2);}
+.modal-box h3{font-size:15px;font-weight:700;margin-bottom:16px;color:#111;}
 .field{margin-bottom:11px;}
 .field label{display:block;font-size:12px;color:#666;margin-bottom:4px;}
 .field input,.field textarea{width:100%;font-size:13px;padding:8px 10px;border-radius:8px;border:1px solid #ddd;background:#fff;color:#111;font-family:Arial,sans-serif;outline:none;}
@@ -59,12 +94,13 @@ h1{font-size:18px;font-weight:700;color:#111;margin-bottom:20px;text-align:cente
 .color-opt{width:26px;height:26px;border-radius:50%;cursor:pointer;border:3px solid transparent;}
 .color-opt.selected{border-color:#111;}
 .modal-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;}
-.modal-btns button{font-size:13px;padding:7px 18px;border-radius:20px;border:1px solid #ccc;background:#fff;cursor:pointer;}
+.modal-btns button{font-size:13px;padding:7px 18px;border-radius:20px;border:1px solid #ccc;background:#fff;cursor:pointer;color:#111;}
 .modal-btns .save{background:#1D9E75;color:#fff;border-color:#1D9E75;}
 
-@media(max-width:480px){
+@media(max-width:700px){
+  .layout{flex-direction:column;}
+  .notes-wrap{width:100%;position:static;}
   .summary{grid-template-columns:repeat(2,1fr);}
-  .section-label{padding-left:20px;}
 }
 </style>
 </head>
@@ -85,16 +121,31 @@ h1{font-size:18px;font-weight:700;color:#111;margin-bottom:20px;text-align:cente
     <button onclick="addSection()">+ সেকশন</button>
   </div>
 
-  <div id="timeline"></div>
+  <div class="layout">
+    <div class="timeline-wrap" id="timeline"></div>
+
+    <div class="notes-wrap">
+      <div class="notes-panel" id="notes-panel">
+        <div class="np-header">
+          <div class="np-title" id="np-title">কোনো ব্লক সিলেক্ট করুন</div>
+          <div class="np-time" id="np-time">রুটিনের যেকোনো কার্ডে ক্লিক করুন</div>
+        </div>
+        <div id="np-body">
+          <div class="np-empty">← কার্ডে ক্লিক করলে এখানে notes ও links যোগ করতে পারবেন</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="modal-wrap" id="modal-wrap">
-  <div class="modal">
+<!-- Edit Modal -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box">
     <h3 id="modal-title">ব্লক এডিট করুন</h3>
     <div class="field"><label>সময়</label><input id="e-time" placeholder="যেমন: ৫:৩০–৮:০০"/></div>
     <div class="field"><label>শিরোনাম</label><input id="e-title" placeholder="কাজের নাম"/></div>
     <div class="field"><label>বিবরণ</label><textarea id="e-sub" placeholder="বিস্তারিত (ঐচ্ছিক)"></textarea></div>
-    <div class="field"><label>রং</label><div class="colors" id="color-picker"></div></div>
+    <div class="field"><label>রং বেছে নিন</label><div class="colors" id="color-picker"></div></div>
     <div class="modal-btns">
       <button onclick="closeModal()">বাতিল</button>
       <button class="save" onclick="saveBlock()">সংরক্ষণ</button>
@@ -103,7 +154,7 @@ h1{font-size:18px;font-weight:700;color:#111;margin-bottom:20px;text-align:cente
 </div>
 
 <script>
-var COLORS=[
+var COLORS = [
   {bg:'#E1F5EE',title:'#085041',sub:'#0F6E56',dot:'#1D9E75',label:'নামাজ'},
   {bg:'#EF9F27',title:'#412402',sub:'#633806',dot:'#BA7517',label:'Bug hunting'},
   {bg:'#E6F1FB',title:'#0C447C',sub:'#185FA5',dot:'#378ADD',label:'অফিস'},
@@ -112,168 +163,297 @@ var COLORS=[
   {bg:'#F1EFE8',title:'#2C2C2A',sub:'#5F5E5A',dot:'#888780',label:'বিশ্রাম'},
 ];
 
-var items=[
+var defaultItems = [
   {type:'section',label:'ভোর — মূল income সেশন'},
-  {type:'block',time:'৪:৩০',title:'ফজর নামাজ',sub:'দিন শুরু আল্লাহর স্মরণে',color:0},
-  {type:'block',time:'৪:৫০–৫:৩০',title:'বিশ্রাম',sub:'হালকা ঘুম, মাথা clear করুন',color:5},
-  {type:'block',time:'৫:৩০–৮:০০',title:'Bug hunting — সকালের সেশন',sub:'মস্তিষ্ক সবচেয়ে তাজা — recon, testing, write-up',color:1},
-  {type:'block',time:'৮:০০–৮:৫৫',title:'নাস্তা + প্রস্তুতি',sub:'গোসল, খাবার, রেডি হওয়া',color:5},
+  {type:'block',time:'৪:৩০',title:'ফজর নামাজ',sub:'দিন শুরু আল্লাহর স্মরণে',color:0,notes:[]},
+  {type:'block',time:'৪:৫০–৫:৩০',title:'বিশ্রাম',sub:'হালকা ঘুম, মাথা clear করুন',color:5,notes:[]},
+  {type:'block',time:'৫:৩০–৮:০০',title:'Bug hunting — সকালের সেশন',sub:'মস্তিষ্ক সবচেয়ে তাজা — recon, testing, write-up',color:1,notes:[
+    {type:'link',value:'https://hackerone.com',date:''},
+    {type:'link',value:'https://bugcrowd.com',date:''},
+  ]},
+  {type:'block',time:'৮:০০–৮:৫৫',title:'নাস্তা + প্রস্তুতি',sub:'গোসল, খাবার, রেডি হওয়া',color:5,notes:[]},
   {type:'section',label:'যাতায়াত + অফিস'},
-  {type:'block',time:'৯:০০–১০:০০',title:'অফিসে যাওয়া',sub:'পথে security podcast শুনুন',color:3},
-  {type:'block',time:'১০:০০–১২:৩০',title:'অফিস — সকালের কাজ',sub:'গুরুত্বপূর্ণ tasks আগে শেষ করুন',color:2},
-  {type:'block',time:'১২:৩০',title:'যোহর নামাজ',sub:'লাঞ্চ ব্রেকের সাথে পড়ুন',color:0},
-  {type:'block',time:'১:০০–২:০০',title:'লাঞ্চ ও বিশ্রাম',sub:'খাওয়া, একটু হাঁটা',color:5},
-  {type:'block',time:'২:০০–৪:৩০',title:'অফিস — বিকেলের কাজ',sub:'বাকি tasks শেষ করুন',color:2},
-  {type:'block',time:'৪:৩০',title:'আসর নামাজ',sub:'বের হওয়ার আগে পড়ে নিন',color:0},
-  {type:'block',time:'৪:৪৫–৭:০০',title:'অফিস শেষ + রওনা',sub:'কাজ গুছিয়ে বের হোন',color:2},
+  {type:'block',time:'৯:০০–১০:০০',title:'অফিসে যাওয়া',sub:'পথে security podcast শুনুন',color:3,notes:[
+    {type:'link',value:'https://darknetdiaries.com',date:''},
+  ]},
+  {type:'block',time:'১০:০০–১২:৩০',title:'অফিস — সকালের কাজ',sub:'গুরুত্বপূর্ণ tasks আগে শেষ করুন',color:2,notes:[]},
+  {type:'block',time:'১২:৩০',title:'যোহর নামাজ',sub:'লাঞ্চ ব্রেকের সাথে পড়ুন',color:0,notes:[]},
+  {type:'block',time:'১:০০–২:০০',title:'লাঞ্চ ও বিশ্রাম',sub:'খাওয়া, একটু হাঁটা',color:5,notes:[]},
+  {type:'block',time:'২:০০–৪:৩০',title:'অফিস — বিকেলের কাজ',sub:'বাকি tasks শেষ করুন',color:2,notes:[]},
+  {type:'block',time:'৪:৩০',title:'আসর নামাজ',sub:'বের হওয়ার আগে পড়ে নিন',color:0,notes:[]},
+  {type:'block',time:'৪:৪৫–৭:০০',title:'অফিস শেষ + রওনা',sub:'কাজ গুছিয়ে বের হোন',color:2,notes:[]},
   {type:'section',label:'সন্ধ্যা + রাত'},
-  {type:'block',time:'৭:০০–৮:০০',title:'বাড়ি ফেরা',sub:'পথে মাগরিব মসজিদে পড়ুন',color:3},
-  {type:'block',time:'~৬:২৫',title:'মাগরিব নামাজ',sub:'ফেরার পথে মসজিদে',color:0},
-  {type:'block',time:'৮:০০–৮:৩০',title:'রাতের খাবার + পরিবার',sub:'স্ক্রিন বন্ধ রেখে সময় কাটান',color:5},
-  {type:'block',time:'৮:৩০–৯:০০',title:'এশার নামাজ',sub:'English শুরুর আগে পড়ুন',color:0},
-  {type:'block',time:'৯:০০–১০:০০',title:'English skill — ১ ঘণ্টা',sub:'Writing / Speaking / Grammar',color:4},
-  {type:'block',time:'১০:০০–১০:৩০',title:'রাতের রুটিন + ঘুম',sub:'পরদিনের target ঠিক করুন, ঘুম',color:5},
+  {type:'block',time:'৭:০০–৮:০০',title:'বাড়ি ফেরা',sub:'পথে মাগরিব মসজিদে পড়ুন',color:3,notes:[]},
+  {type:'block',time:'~৬:২৫',title:'মাগরিব নামাজ',sub:'ফেরার পথে মসজিদে',color:0,notes:[]},
+  {type:'block',time:'৮:০০–৮:৩০',title:'রাতের খাবার + পরিবার',sub:'স্ক্রিন বন্ধ রেখে সময় কাটান',color:5,notes:[]},
+  {type:'block',time:'৮:৩০–৯:০০',title:'এশার নামাজ',sub:'English শুরুর আগে পড়ুন',color:0,notes:[]},
+  {type:'block',time:'৯:০০–১০:০০',title:'English skill — ১ ঘণ্টা',sub:'Writing / Speaking / Grammar',color:4,notes:[
+    {type:'link',value:'https://www.bbc.co.uk/learningenglish',date:''},
+  ]},
+  {type:'block',time:'১০:০০–১০:৩০',title:'রাতের রুটিন + ঘুম',sub:'পরদিনের target ঠিক করুন, ঘুম',color:5,notes:[]},
 ];
 
-var editIdx=null;
-var selColor=0;
+var items = [];
+var editIdx = null;
+var selColor = 0;
+var activeIdx = null;
 
-function render(){
-  var tl=document.getElementById('timeline');
-  tl.innerHTML='';
-  for(var i=0;i<items.length;i++){
-    var item=items[i];
-    if(item.type==='section'){
-      var s=document.createElement('div');
-      s.className='section-label';
-      s.textContent=item.label;
-      (function(idx){
-        s.ondblclick=function(){
-          var v=prompt('সেকশনের নাম:',items[idx].label);
-          if(v){items[idx].label=v;save();render();}
+function load() {
+  try {
+    var d = localStorage.getItem('routine_v3');
+    if (d) { items = JSON.parse(d); return; }
+  } catch(e) {}
+  items = JSON.parse(JSON.stringify(defaultItems));
+}
+
+function save() {
+  try { localStorage.setItem('routine_v3', JSON.stringify(items)); } catch(e) {}
+}
+
+function today() {
+  var d = new Date();
+  return d.getFullYear() + '/' + (d.getMonth()+1) + '/' + d.getDate();
+}
+
+function isUrl(s) {
+  return /^https?:\/\//i.test(s) || /^www\./i.test(s);
+}
+
+function render() {
+  var tl = document.getElementById('timeline');
+  tl.innerHTML = '';
+
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+
+    if (item.type === 'section') {
+      var s = document.createElement('div');
+      s.className = 'section-label';
+      s.textContent = item.label;
+      (function(idx) {
+        s.ondblclick = function() {
+          var v = prompt('সেকশনের নাম:', items[idx].label);
+          if (v && v.trim()) { items[idx].label = v.trim(); save(); render(); }
         };
       })(i);
       tl.appendChild(s);
       continue;
     }
-    var c=COLORS[item.color||0];
-    var blk=document.createElement('div');
-    blk.className='block';
 
-    var tc=document.createElement('div');
-    tc.className='time-col';
-    var inp=document.createElement('input');
-    inp.value=item.time||'';
-    (function(idx,el){
-      el.onchange=function(){items[idx].time=this.value;save();};
-      el.onclick=function(e){e.stopPropagation();};
-    })(i,inp);
+    var c = COLORS[item.color || 0];
+    if (!item.notes) item.notes = [];
+
+    var blk = document.createElement('div');
+    blk.className = 'block';
+
+    // time
+    var tc = document.createElement('div');
+    tc.className = 'time-col';
+    var inp = document.createElement('input');
+    inp.type = 'text';
+    inp.value = item.time || '';
+    (function(idx, el) {
+      el.onchange = function() { items[idx].time = this.value; save(); };
+      el.onclick = function(e) { e.stopPropagation(); };
+    })(i, inp);
     tc.appendChild(inp);
     blk.appendChild(tc);
 
-    var lc=document.createElement('div');
-    lc.className='line-col';
-    var dot=document.createElement('div');
-    dot.className='dot';
-    dot.style.background=c.dot;
-    (function(idx){dot.ondblclick=function(){openModal(idx);};})(i);
+    // dot + vline
+    var lc = document.createElement('div');
+    lc.className = 'line-col';
+    var dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.style.background = c.dot;
+    dot.title = 'ডাবল ক্লিক = এডিট';
+    (function(idx) {
+      dot.ondblclick = function(e) { e.stopPropagation(); openModal(idx); };
+    })(i);
     lc.appendChild(dot);
-    var hasNext=false;
-    for(var j=i+1;j<items.length;j++){if(items[j]){hasNext=true;break;}}
-    if(hasNext){var vl=document.createElement('div');vl.className='vline';lc.appendChild(vl);}
+    if (i < items.length - 1) {
+      var vl = document.createElement('div');
+      vl.className = 'vline';
+      lc.appendChild(vl);
+    }
     blk.appendChild(lc);
 
-    var card=document.createElement('div');
-    card.className='card';
-    card.style.background=c.bg;
-    (function(idx){card.ondblclick=function(){openModal(idx);};})(i);
-    var ct=document.createElement('div');
-    ct.className='card-title';
-    ct.style.color=c.title;
-    ct.textContent=item.title;
+    // card
+    var card = document.createElement('div');
+    card.className = 'card' + (activeIdx === i ? ' active' : '');
+    card.style.background = c.bg;
+    (function(idx) {
+      card.onclick = function() { activeIdx = idx; render(); renderNotes(); };
+    })(i);
+    var ct = document.createElement('div');
+    ct.className = 'card-title';
+    ct.style.color = c.title;
+    ct.textContent = item.title;
+    if (item.notes.length > 0) {
+      var nb = document.createElement('span');
+      nb.className = 'note-count';
+      nb.style.color = c.title;
+      nb.textContent = item.notes.length + ' টি';
+      ct.appendChild(nb);
+    }
     card.appendChild(ct);
-    if(item.sub){
-      var cs=document.createElement('div');
-      cs.className='card-sub';
-      cs.style.color=c.sub;
-      cs.textContent=item.sub;
+    if (item.sub) {
+      var cs = document.createElement('div');
+      cs.className = 'card-sub';
+      cs.style.color = c.sub;
+      cs.textContent = item.sub;
       card.appendChild(cs);
     }
     blk.appendChild(card);
 
-    var db=document.createElement('button');
-    db.className='del-btn';
-    db.textContent='✕';
-    (function(idx){
-      db.onclick=function(e){
+    // delete
+    var db = document.createElement('button');
+    db.className = 'del-btn';
+    db.textContent = '✕';
+    (function(idx) {
+      db.onclick = function(e) {
         e.stopPropagation();
-        if(confirm('এই ব্লকটি মুছে ফেলবেন?')){items.splice(idx,1);save();render();}
+        if (confirm('এই ব্লকটি মুছে ফেলবেন?')) {
+          if (activeIdx === idx) activeIdx = null;
+          items.splice(idx, 1);
+          save(); render(); renderNotes();
+        }
       };
     })(i);
     blk.appendChild(db);
+
     tl.appendChild(blk);
   }
 }
 
-function openModal(idx){
-  editIdx=idx;
-  var item=items[idx];
-  document.getElementById('e-time').value=item.time||'';
-  document.getElementById('e-title').value=item.title||'';
-  document.getElementById('e-sub').value=item.sub||'';
-  selColor=item.color||0;
-  renderColorPicker();
-  document.getElementById('modal-title').textContent='ব্লক এডিট করুন';
-  document.getElementById('modal-wrap').classList.add('open');
+function renderNotes() {
+  var body = document.getElementById('np-body');
+  var titleEl = document.getElementById('np-title');
+  var timeEl = document.getElementById('np-time');
+
+  if (activeIdx === null || !items[activeIdx] || items[activeIdx].type !== 'block') {
+    titleEl.textContent = 'কোনো ব্লক সিলেক্ট করুন';
+    timeEl.textContent = 'রুটিনের যেকোনো কার্ডে ক্লিক করুন';
+    body.innerHTML = '<div class="np-empty">← কার্ডে ক্লিক করলে এখানে notes ও links যোগ করতে পারবেন</div>';
+    return;
+  }
+
+  var item = items[activeIdx];
+  var notes = item.notes || [];
+  titleEl.textContent = item.title;
+  timeEl.textContent = item.time || '';
+
+  var html = '';
+  if (notes.length === 0) {
+    html += '<div class="np-empty" style="padding:10px 0 12px;">এখনো কিছু নেই। নিচে যোগ করুন।</div>';
+  } else {
+    notes.forEach(function(n, ni) {
+      html += '<div class="note-item">';
+      html += '<button class="note-del" onclick="deleteNote(' + ni + ')">✕</button>';
+      if (n.type === 'link') {
+        var url = /^https?:\/\//i.test(n.value) ? n.value : 'https://' + n.value;
+        html += '<a class="note-link" href="' + url + '" target="_blank">' + n.value + '</a>';
+      } else {
+        html += '<div class="note-text">' + n.value.replace(/</g,'&lt;') + '</div>';
+      }
+      if (n.date) html += '<div class="note-date">' + n.date + '</div>';
+      html += '</div>';
+    });
+  }
+
+  html += '<div class="add-area">';
+  html += '<textarea id="note-input" placeholder="নোট লিখুন অথবা link paste করুন..."></textarea>';
+  html += '<div class="add-btns">';
+  html += '<button class="btn-note" onclick="addNote(false)">+ নোট সেভ</button>';
+  html += '<button class="btn-link" onclick="addNote(true)">+ Link সেভ</button>';
+  html += '</div></div>';
+
+  body.innerHTML = html;
 }
 
-function renderColorPicker(){
-  var cp=document.getElementById('color-picker');
-  cp.innerHTML='';
-  for(var i=0;i<COLORS.length;i++){
-    var d=document.createElement('div');
-    d.className='color-opt'+(i===selColor?' selected':'');
-    d.style.background=COLORS[i].dot;
-    d.title=COLORS[i].label;
-    (function(ci){d.onclick=function(){selColor=ci;renderColorPicker();};})(i);
+function addNote(forceLink) {
+  var el = document.getElementById('note-input');
+  var val = el ? el.value.trim() : '';
+  if (!val) return;
+  if (!items[activeIdx].notes) items[activeIdx].notes = [];
+  var type = (forceLink || isUrl(val)) ? 'link' : 'text';
+  items[activeIdx].notes.push({type: type, value: val, date: today()});
+  save(); render(); renderNotes();
+}
+
+function deleteNote(ni) {
+  items[activeIdx].notes.splice(ni, 1);
+  save(); render(); renderNotes();
+}
+
+function openModal(idx) {
+  editIdx = idx;
+  var item = items[idx];
+  document.getElementById('e-time').value = item.time || '';
+  document.getElementById('e-title').value = item.title || '';
+  document.getElementById('e-sub').value = item.sub || '';
+  selColor = item.color || 0;
+  renderColorPicker();
+  document.getElementById('modal-title').textContent = 'ব্লক এডিট করুন';
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function renderColorPicker() {
+  var cp = document.getElementById('color-picker');
+  cp.innerHTML = '';
+  for (var i = 0; i < COLORS.length; i++) {
+    var d = document.createElement('div');
+    d.className = 'color-opt' + (i === selColor ? ' selected' : '');
+    d.style.background = COLORS[i].dot;
+    d.title = COLORS[i].label;
+    (function(ci) { d.onclick = function() { selColor = ci; renderColorPicker(); }; })(i);
     cp.appendChild(d);
   }
 }
 
-function closeModal(){document.getElementById('modal-wrap').classList.remove('open');editIdx=null;}
-
-function saveBlock(){
-  var t=document.getElementById('e-title').value.trim();
-  if(!t){alert('শিরোনাম লিখুন');return;}
-  var obj={type:'block',time:document.getElementById('e-time').value,title:t,sub:document.getElementById('e-sub').value,color:selColor};
-  if(editIdx===null){items.push(obj);}else{items[editIdx]=obj;}
-  closeModal();save();render();
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  editIdx = null;
 }
 
-function addBlock(){
-  editIdx=null;selColor=0;
-  document.getElementById('e-time').value='';
-  document.getElementById('e-title').value='';
-  document.getElementById('e-sub').value='';
-  document.getElementById('modal-title').textContent='নতুন ব্লক যোগ করুন';
+function saveBlock() {
+  var t = document.getElementById('e-title').value.trim();
+  if (!t) { alert('শিরোনাম লিখুন'); return; }
+  var obj = {
+    type:'block',
+    time: document.getElementById('e-time').value,
+    title: t,
+    sub: document.getElementById('e-sub').value,
+    color: selColor,
+    notes: editIdx !== null ? (items[editIdx].notes || []) : []
+  };
+  if (editIdx === null) { items.push(obj); }
+  else { items[editIdx] = obj; }
+  closeModal(); save(); render();
+  if (activeIdx !== null) renderNotes();
+}
+
+function addBlock() {
+  editIdx = null; selColor = 0;
+  document.getElementById('e-time').value = '';
+  document.getElementById('e-title').value = '';
+  document.getElementById('e-sub').value = '';
+  document.getElementById('modal-title').textContent = 'নতুন ব্লক যোগ করুন';
   renderColorPicker();
-  document.getElementById('modal-wrap').classList.add('open');
+  document.getElementById('modal-overlay').classList.add('open');
 }
 
-function addSection(){
-  var v=prompt('সেকশনের নাম লিখুন:');
-  if(v){items.push({type:'section',label:v});save();render();}
+function addSection() {
+  var v = prompt('সেকশনের নাম লিখুন:');
+  if (v && v.trim()) { items.push({type:'section', label:v.trim()}); save(); render(); }
 }
 
-function save(){
-  try{localStorage.setItem('routine_data',JSON.stringify(items));}catch(e){}
-}
+document.getElementById('modal-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
 
-function load(){
-  try{var d=localStorage.getItem('routine_data');if(d)items=JSON.parse(d);}catch(e){}
-}
-
-load();render();
+load();
+render();
+renderNotes();
 </script>
 </body>
 </html>
