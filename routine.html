@@ -24,7 +24,6 @@ h1{font-size:18px;font-weight:700;text-align:center;margin-bottom:20px;}
 .layout{display:flex;gap:20px;align-items:flex-start;}
 .timeline-wrap{flex:1;min-width:0;}
 
-/* section + block */
 .section-label{font-size:10px;font-weight:700;letter-spacing:.08em;color:#999;padding:14px 0 5px 108px;text-transform:uppercase;cursor:pointer;}
 .section-label:hover{color:#555;}
 .block{display:flex;gap:10px;align-items:stretch;position:relative;}
@@ -46,13 +45,8 @@ h1{font-size:18px;font-weight:700;text-align:center;margin-bottom:20px;}
 .del-btn{opacity:0;position:absolute;right:-24px;top:8px;background:transparent;border:none;cursor:pointer;font-size:15px;color:#bbb;padding:2px 4px;}
 .del-btn:hover{color:#e00;}
 
-/* RIGHT PANEL */
 .right-col{width:280px;flex-shrink:0;display:flex;flex-direction:column;gap:14px;position:sticky;top:28px;}
-
-/* notes panel */
 .panel{background:#fff;border-radius:12px;border:1px solid #e5e5e2;padding:16px;}
-.panel-title{font-size:12px;font-weight:700;color:#555;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
-.panel-title span{font-size:16px;}
 .np-name{font-size:13px;font-weight:700;color:#111;margin-bottom:2px;}
 .np-time{font-size:11px;color:#aaa;margin-bottom:10px;}
 .np-empty{font-size:12px;color:#ccc;text-align:center;padding:14px 0;}
@@ -64,7 +58,6 @@ h1{font-size:18px;font-weight:700;text-align:center;margin-bottom:20px;}
 .note-date{font-size:10px;color:#ccc;margin-top:3px;}
 .note-del{position:absolute;top:5px;right:5px;background:none;border:none;cursor:pointer;font-size:12px;color:#ccc;}
 .note-del:hover{color:#e00;}
-
 .add-area textarea{width:100%;font-size:12px;padding:7px 10px;border-radius:8px;border:1px solid #ddd;resize:none;height:64px;font-family:Arial,sans-serif;outline:none;color:#111;margin-top:8px;}
 .add-area textarea:focus{border-color:#1D9E75;}
 .add-btns{display:flex;gap:6px;margin-top:6px;}
@@ -72,35 +65,36 @@ h1{font-size:18px;font-weight:700;text-align:center;margin-bottom:20px;}
 .btn-note{background:#1D9E75 !important;color:#fff !important;border-color:#1D9E75 !important;}
 .btn-link{background:#185FA5 !important;color:#fff !important;border-color:#185FA5 !important;}
 
-/* CHECKLIST panel */
-.checklist-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-.checklist-title{font-size:12px;font-weight:700;color:#555;display:flex;align-items:center;gap:6px;}
-.checklist-title span{font-size:15px;}
+.checklist-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.checklist-title{font-size:12px;font-weight:700;color:#555;}
 .cl-reset{font-size:11px;color:#aaa;background:none;border:none;cursor:pointer;padding:0;}
 .cl-reset:hover{color:#e00;}
 .cl-date{font-size:10px;color:#bbb;margin-bottom:10px;}
 .cl-progress{height:5px;background:#eee;border-radius:10px;margin-bottom:12px;overflow:hidden;}
 .cl-bar{height:100%;background:#1D9E75;border-radius:10px;transition:width .3s;}
 
-.cl-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;padding:7px 10px;border-radius:8px;background:#f8f8f6;cursor:pointer;transition:background .15s;}
+.cl-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;padding:7px 10px;border-radius:8px;background:#f8f8f6;cursor:pointer;transition:opacity .15s;}
 .cl-item:hover{background:#f0f0ee;}
 .cl-item.done{background:#E1F5EE;}
 .cl-item.done .cl-label{color:#0F6E56;text-decoration:line-through;opacity:.7;}
-.cl-check{width:17px;height:17px;border-radius:4px;border:2px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.cl-item.dragging{opacity:.35;border:2px dashed #1D9E75;background:#f0faf6;}
+.cl-item.drag-over{border-top:2.5px solid #1D9E75;}
+.cl-check{width:17px;height:17px;border-radius:4px;border:2px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;}
 .cl-item.done .cl-check{background:#1D9E75;border-color:#1D9E75;}
 .cl-check-tick{display:none;color:#fff;font-size:11px;font-weight:700;}
 .cl-item.done .cl-check-tick{display:block;}
 .cl-label{font-size:12px;color:#333;flex:1;line-height:1.4;}
-.cl-del{background:none;border:none;cursor:pointer;font-size:12px;color:#ddd;flex-shrink:0;padding:0 0 0 4px;}
+.cl-del{background:none;border:none;cursor:pointer;font-size:12px;color:#ddd;flex-shrink:0;}
 .cl-del:hover{color:#e00;}
+.drag-handle{cursor:grab;color:#ccc;font-size:13px;flex-shrink:0;padding:0 2px;user-select:none;}
+.drag-handle:hover{color:#999;}
+.drag-handle:active{cursor:grabbing;}
 
 .cl-add{display:flex;gap:6px;margin-top:8px;}
 .cl-add input{flex:1;font-size:12px;padding:7px 10px;border-radius:8px;border:1px solid #ddd;outline:none;font-family:Arial,sans-serif;color:#111;}
 .cl-add input:focus{border-color:#1D9E75;}
 .cl-add button{font-size:12px;padding:7px 12px;border-radius:8px;border:none;background:#1D9E75;color:#fff;cursor:pointer;font-weight:700;}
-.cl-add button:hover{opacity:.85;}
 
-/* modal */
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:9999;}
 .modal-overlay.open{display:flex;align-items:center;justify-content:center;}
 .modal-box{background:#fff;border-radius:14px;padding:22px;width:340px;max-width:92vw;box-shadow:0 8px 40px rgba(0,0,0,.2);}
@@ -141,26 +135,19 @@ h1{font-size:18px;font-weight:700;text-align:center;margin-bottom:20px;}
   </div>
 
   <div class="layout">
-    <!-- LEFT: timeline -->
     <div class="timeline-wrap" id="timeline"></div>
 
-    <!-- RIGHT: notes + checklist -->
     <div class="right-col">
-
-      <!-- Notes panel -->
       <div class="panel" id="notes-panel">
         <div class="np-name" id="np-title">কোনো ব্লক সিলেক্ট করুন</div>
         <div class="np-time" id="np-time">কার্ডে ক্লিক করলে notes ও links যোগ করতে পারবেন</div>
-        <div id="np-body">
-          <div class="np-empty">← যেকোনো কার্ডে ক্লিক করুন</div>
-        </div>
+        <div id="np-body"><div class="np-empty">উপরে যেকোনো কার্ডে ক্লিক করুন</div></div>
       </div>
 
-      <!-- Checklist panel -->
       <div class="panel">
         <div class="checklist-header">
-          <div class="checklist-title"><span>✅</span> আজকের checklist</div>
-          <button class="cl-reset" onclick="resetChecks()" title="সব uncheck করুন">রিসেট</button>
+          <div class="checklist-title">আজকের checklist</div>
+          <button class="cl-reset" onclick="resetChecks()">রিসেট</button>
         </div>
         <div class="cl-date" id="cl-date"></div>
         <div class="cl-progress"><div class="cl-bar" id="cl-bar" style="width:0%"></div></div>
@@ -170,16 +157,14 @@ h1{font-size:18px;font-weight:700;text-align:center;margin-bottom:20px;}
           <button onclick="addClItem()">+</button>
         </div>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- Edit Modal -->
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal-box">
     <h3 id="modal-title">ব্লক এডিট করুন</h3>
-    <div class="field"><label>সময়</label><input id="e-time" placeholder="যেমন: ৫:৩০–৮:০০"/></div>
+    <div class="field"><label>সময়</label><input id="e-time" placeholder="যেমন: ৫:৩০-৮:০০"/></div>
     <div class="field"><label>শিরোনাম</label><input id="e-title" placeholder="কাজের নাম"/></div>
     <div class="field"><label>বিবরণ</label><textarea id="e-sub" placeholder="বিস্তারিত (ঐচ্ছিক)"></textarea></div>
     <div class="field"><label>রং বেছে নিন</label><div class="colors" id="color-picker"></div></div>
@@ -192,52 +177,52 @@ h1{font-size:18px;font-weight:700;text-align:center;margin-bottom:20px;}
 
 <script>
 var COLORS=[
-  {bg:'#E1F5EE',title:'#085041',sub:'#0F6E56',dot:'#1D9E75',label:'নামাজ'},
-  {bg:'#EF9F27',title:'#412402',sub:'#633806',dot:'#BA7517',label:'Bug hunting'},
-  {bg:'#E6F1FB',title:'#0C447C',sub:'#185FA5',dot:'#378ADD',label:'অফিস'},
-  {bg:'#FBEAF0',title:'#72243E',sub:'#993556',dot:'#D4537E',label:'যাতায়াত'},
-  {bg:'#EEEDFE',title:'#3C3489',sub:'#534AB7',dot:'#7F77DD',label:'English'},
-  {bg:'#F1EFE8',title:'#2C2C2A',sub:'#5F5E5A',dot:'#888780',label:'বিশ্রাম'},
+  {bg:'#E1F5EE',title:'#085041',sub:'#0F6E56',dot:'#1D9E75',label:'namaz'},
+  {bg:'#EF9F27',title:'#412402',sub:'#633806',dot:'#BA7517',label:'bug'},
+  {bg:'#E6F1FB',title:'#0C447C',sub:'#185FA5',dot:'#378ADD',label:'office'},
+  {bg:'#FBEAF0',title:'#72243E',sub:'#993556',dot:'#D4537E',label:'commute'},
+  {bg:'#EEEDFE',title:'#3C3489',sub:'#534AB7',dot:'#7F77DD',label:'english'},
+  {bg:'#F1EFE8',title:'#2C2C2A',sub:'#5F5E5A',dot:'#888780',label:'rest'},
 ];
 
 var defaultItems=[
-  {type:'section',label:'ভোর — মূল income সেশন'},
-  {type:'block',time:'৪:৩০',title:'ফজর নামাজ',sub:'দিন শুরু আল্লাহর স্মরণে',color:0,notes:[]},
-  {type:'block',time:'৪:৫০–৫:৩০',title:'বিশ্রাম',sub:'হালকা ঘুম, মাথা clear করুন',color:5,notes:[]},
-  {type:'block',time:'৫:৩০–৮:০০',title:'Bug hunting — সকালের সেশন',sub:'মস্তিষ্ক সবচেয়ে তাজা — recon, testing, write-up',color:1,notes:[
+  {type:'section',label:'Vor - mul income session'},
+  {type:'block',time:'4:30',title:'Fajr Namaz',sub:'Din shuru Allahor smorone',color:0,notes:[]},
+  {type:'block',time:'4:50-5:30',title:'Bishsham',sub:'Halka ghum, matha clear korun',color:5,notes:[]},
+  {type:'block',time:'5:30-8:00',title:'Bug hunting - sokaler session',sub:'Mostishko sobcheye taza - recon, testing, write-up',color:1,notes:[
     {type:'link',value:'https://hackerone.com',date:''},
     {type:'link',value:'https://bugcrowd.com',date:''},
   ]},
-  {type:'block',time:'৮:০০–৮:৫৫',title:'নাস্তা + প্রস্তুতি',sub:'গোসল, খাবার, রেডি হওয়া',color:5,notes:[]},
-  {type:'section',label:'যাতায়াত + অফিস'},
-  {type:'block',time:'৯:০০–১০:০০',title:'অফিসে যাওয়া',sub:'পথে security podcast শুনুন',color:3,notes:[
+  {type:'block',time:'8:00-8:55',title:'Nasta + prostuti',sub:'Gosol, khabar, ready howa',color:5,notes:[]},
+  {type:'section',label:'Jatayat + Office'},
+  {type:'block',time:'9:00-10:00',title:'Office-e jawa',sub:'Pothe security podcast shunn',color:3,notes:[
     {type:'link',value:'https://darknetdiaries.com',date:''},
   ]},
-  {type:'block',time:'১০:০০–১২:৩০',title:'অফিস — সকালের কাজ',sub:'গুরুত্বপূর্ণ tasks আগে শেষ করুন',color:2,notes:[]},
-  {type:'block',time:'১২:৩০',title:'যোহর নামাজ',sub:'লাঞ্চ ব্রেকের সাথে পড়ুন',color:0,notes:[]},
-  {type:'block',time:'১:০০–২:০০',title:'লাঞ্চ ও বিশ্রাম',sub:'খাওয়া, একটু হাঁটা',color:5,notes:[]},
-  {type:'block',time:'২:০০–৪:৩০',title:'অফিস — বিকেলের কাজ',sub:'বাকি tasks শেষ করুন',color:2,notes:[]},
-  {type:'block',time:'৪:৩০',title:'আসর নামাজ',sub:'বের হওয়ার আগে পড়ে নিন',color:0,notes:[]},
-  {type:'block',time:'৪:৪৫–৭:০০',title:'অফিস শেষ + রওনা',sub:'কাজ গুছিয়ে বের হোন',color:2,notes:[]},
-  {type:'section',label:'সন্ধ্যা + রাত'},
-  {type:'block',time:'৭:০০–৮:০০',title:'বাড়ি ফেরা',sub:'পথে মাগরিব মসজিদে পড়ুন',color:3,notes:[]},
-  {type:'block',time:'~৬:২৫',title:'মাগরিব নামাজ',sub:'ফেরার পথে মসজিদে',color:0,notes:[]},
-  {type:'block',time:'৮:০০–৮:৩০',title:'রাতের খাবার + পরিবার',sub:'স্ক্রিন বন্ধ রেখে সময় কাটান',color:5,notes:[]},
-  {type:'block',time:'৮:৩০–৯:০০',title:'এশার নামাজ',sub:'English শুরুর আগে পড়ুন',color:0,notes:[]},
-  {type:'block',time:'৯:০০–১০:০০',title:'English skill — ১ ঘণ্টা',sub:'Writing / Speaking / Grammar',color:4,notes:[
+  {type:'block',time:'10:00-12:30',title:'Office - sokaler kaj',sub:'Guruttopurno tasks age shesh korun',color:2,notes:[]},
+  {type:'block',time:'12:30',title:'Johor Namaz',sub:'Lunch break-er shathe porun',color:0,notes:[]},
+  {type:'block',time:'1:00-2:00',title:'Lunch o bishsham',sub:'Khawa, ektu hata',color:5,notes:[]},
+  {type:'block',time:'2:00-4:30',title:'Office - bikeler kaj',sub:'Baki tasks shesh korun',color:2,notes:[]},
+  {type:'block',time:'4:30',title:'Asr Namaz',sub:'Ber howar age pore nin',color:0,notes:[]},
+  {type:'block',time:'4:45-7:00',title:'Office shesh + rona',sub:'Kaj guchiye ber hon',color:2,notes:[]},
+  {type:'section',label:'Shondha + Rat'},
+  {type:'block',time:'7:00-8:00',title:'Bari phera',sub:'Pothe Maghrib mosjide porun',color:3,notes:[]},
+  {type:'block',time:'~6:25',title:'Maghrib Namaz',sub:'Pherar pothe mosjide',color:0,notes:[]},
+  {type:'block',time:'8:00-8:30',title:'Rater khabar + poribar',sub:'Screen bondho rekhe shomoy katan',color:5,notes:[]},
+  {type:'block',time:'8:30-9:00',title:'Isha Namaz',sub:'English shuror age porun',color:0,notes:[]},
+  {type:'block',time:'9:00-10:00',title:'English skill - 1 ghonta',sub:'Writing / Speaking / Grammar',color:4,notes:[
     {type:'link',value:'https://www.bbc.co.uk/learningenglish',date:''},
   ]},
-  {type:'block',time:'১০:০০–১০:৩০',title:'রাতের রুটিন + ঘুম',sub:'পরদিনের target ঠিক করুন, ঘুম',color:5,notes:[]},
+  {type:'block',time:'10:00-10:30',title:'Rater routine + ghum',sub:'Pordir target thik korun, ghum',color:5,notes:[]},
 ];
 
 var defaultChecklist=[
-  {id:1,label:'ফজর নামাজ পড়েছি',done:false},
-  {id:2,label:'Bug hunting সেশন শেষ',done:false},
-  {id:3,label:'যোহর নামাজ পড়েছি',done:false},
-  {id:4,label:'আসর নামাজ পড়েছি',done:false},
-  {id:5,label:'মাগরিব নামাজ পড়েছি',done:false},
-  {id:6,label:'এশার নামাজ পড়েছি',done:false},
-  {id:7,label:'English practice করেছি',done:false},
+  {id:1,label:'Fajr Namaz poreci',done:false},
+  {id:2,label:'Bug hunting session shesh',done:false},
+  {id:3,label:'Johor Namaz poreci',done:false},
+  {id:4,label:'Asr Namaz poreci',done:false},
+  {id:5,label:'Maghrib Namaz poreci',done:false},
+  {id:6,label:'Isha Namaz poreci',done:false},
+  {id:7,label:'English practice koreci',done:false},
 ];
 
 var items=[];
@@ -245,30 +230,37 @@ var checklist=[];
 var editIdx=null;
 var selColor=0;
 var activeIdx=null;
-var clNextId=100;
+var clNextId=200;
 
 function todayStr(){
   var d=new Date();
-  var days=['রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'];
-  return days[d.getDay()]+', '+d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
+  var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  return days[d.getDay()]+' '+d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
 }
 
 function load(){
   try{
-    var r=localStorage.getItem('routine_v4');
-    if(r) items=JSON.parse(r);
-    else items=JSON.parse(JSON.stringify(defaultItems));
-    var cl=localStorage.getItem('checklist_v4');
-    if(cl) checklist=JSON.parse(cl);
-    else checklist=JSON.parse(JSON.stringify(defaultChecklist));
-    // reset checks if new day
-    var lastDay=localStorage.getItem('cl_day');
-    var today=new Date().toDateString();
-    if(lastDay!==today){
-      checklist.forEach(function(c){c.done=false;});
-      localStorage.setItem('cl_day',today);
-      saveAll();
+    var r=localStorage.getItem('routine_v5');
+    if(r){ items=JSON.parse(r); }
+    else{ items=JSON.parse(JSON.stringify(defaultItems)); }
+
+    var cl=localStorage.getItem('checklist_v5');
+    if(cl){
+      checklist=JSON.parse(cl);
+    } else {
+      checklist=JSON.parse(JSON.stringify(defaultChecklist));
+      localStorage.setItem('checklist_v5',JSON.stringify(checklist));
     }
+
+    // নতুন দিনে শুধু done:false হবে, items মুছবে না
+    var lastDay=localStorage.getItem('cl_day_v5');
+    var today=new Date().toDateString();
+    if(lastDay && lastDay!==today){
+      checklist.forEach(function(c){ c.done=false; });
+      localStorage.setItem('checklist_v5',JSON.stringify(checklist));
+    }
+    localStorage.setItem('cl_day_v5',today);
+
   }catch(e){
     items=JSON.parse(JSON.stringify(defaultItems));
     checklist=JSON.parse(JSON.stringify(defaultChecklist));
@@ -277,14 +269,13 @@ function load(){
 
 function saveAll(){
   try{
-    localStorage.setItem('routine_v4',JSON.stringify(items));
-    localStorage.setItem('checklist_v4',JSON.stringify(checklist));
+    localStorage.setItem('routine_v5',JSON.stringify(items));
+    localStorage.setItem('checklist_v5',JSON.stringify(checklist));
   }catch(e){}
 }
 
-function isUrl(s){return /^https?:\/\//i.test(s)||/^www\./i.test(s);}
+function isUrl(s){ return /^https?:\/\//i.test(s)||/^www\./i.test(s); }
 
-/* ---- TIMELINE ---- */
 function render(){
   var tl=document.getElementById('timeline');
   tl.innerHTML='';
@@ -294,22 +285,24 @@ function render(){
       var s=document.createElement('div');
       s.className='section-label';
       s.textContent=item.label;
-      (function(idx){s.ondblclick=function(){var v=prompt('সেকশনের নাম:',items[idx].label);if(v&&v.trim()){items[idx].label=v.trim();saveAll();render();}};})(i);
+      (function(idx){s.ondblclick=function(){var v=prompt('Section name:',items[idx].label);if(v&&v.trim()){items[idx].label=v.trim();saveAll();render();}};})(i);
       tl.appendChild(s);
       continue;
     }
     var c=COLORS[item.color||0];
     if(!item.notes)item.notes=[];
-    var blk=document.createElement('div');
-    blk.className='block';
+    var blk=document.createElement('div');blk.className='block';
 
     var tc=document.createElement('div');tc.className='time-col';
     var inp=document.createElement('input');inp.type='text';inp.value=item.time||'';
-    (function(idx,el){el.onchange=function(){items[idx].time=this.value;saveAll();};el.onclick=function(e){e.stopPropagation();};})(i,inp);
+    (function(idx,el){
+      el.onchange=function(){items[idx].time=this.value;saveAll();};
+      el.onclick=function(e){e.stopPropagation();};
+    })(i,inp);
     tc.appendChild(inp);blk.appendChild(tc);
 
     var lc=document.createElement('div');lc.className='line-col';
-    var dot=document.createElement('div');dot.className='dot';dot.style.background=c.dot;dot.title='ডাবল ক্লিক = এডিট';
+    var dot=document.createElement('div');dot.className='dot';dot.style.background=c.dot;
     (function(idx){dot.ondblclick=function(e){e.stopPropagation();openModal(idx);};})(i);
     lc.appendChild(dot);
     if(i<items.length-1){var vl=document.createElement('div');vl.className='vline';lc.appendChild(vl);}
@@ -320,27 +313,26 @@ function render(){
     card.style.background=c.bg;
     (function(idx){card.onclick=function(){activeIdx=idx;render();renderNotes();};})(i);
     var ct=document.createElement('div');ct.className='card-title';ct.style.color=c.title;ct.textContent=item.title;
-    if(item.notes.length>0){var nb=document.createElement('span');nb.className='note-count';nb.style.color=c.title;nb.textContent=item.notes.length+' টি';ct.appendChild(nb);}
+    if(item.notes.length>0){var nb=document.createElement('span');nb.className='note-count';nb.style.color=c.title;nb.textContent=item.notes.length;ct.appendChild(nb);}
     card.appendChild(ct);
     if(item.sub){var cs=document.createElement('div');cs.className='card-sub';cs.style.color=c.sub;cs.textContent=item.sub;card.appendChild(cs);}
     blk.appendChild(card);
 
-    var db=document.createElement('button');db.className='del-btn';db.textContent='✕';
-    (function(idx){db.onclick=function(e){e.stopPropagation();if(confirm('মুছে ফেলবেন?')){if(activeIdx===idx)activeIdx=null;items.splice(idx,1);saveAll();render();renderNotes();}};})(i);
+    var db=document.createElement('button');db.className='del-btn';db.textContent='X';
+    (function(idx){db.onclick=function(e){e.stopPropagation();if(confirm('Delete this block?')){if(activeIdx===idx)activeIdx=null;items.splice(idx,1);saveAll();render();renderNotes();}};})(i);
     blk.appendChild(db);
     tl.appendChild(blk);
   }
 }
 
-/* ---- NOTES ---- */
 function renderNotes(){
   var body=document.getElementById('np-body');
   var titleEl=document.getElementById('np-title');
   var timeEl=document.getElementById('np-time');
   if(activeIdx===null||!items[activeIdx]||items[activeIdx].type!=='block'){
-    titleEl.textContent='কোনো ব্লক সিলেক্ট করুন';
-    timeEl.textContent='কার্ডে ক্লিক করলে notes ও links যোগ করতে পারবেন';
-    body.innerHTML='<div class="np-empty">← যেকোনো কার্ডে ক্লিক করুন</div>';
+    titleEl.textContent='Select a block';
+    timeEl.textContent='Click any card to add notes and links';
+    body.innerHTML='<div class="np-empty">Click any card above</div>';
     return;
   }
   var item=items[activeIdx];
@@ -348,15 +340,15 @@ function renderNotes(){
   titleEl.textContent=item.title;
   timeEl.textContent=item.time||'';
   var html='';
-  if(notes.length===0){html+='<div class="np-empty" style="padding:8px 0 10px;">এখনো কিছু নেই।</div>';}
+  if(notes.length===0){html+='<div class="np-empty" style="padding:8px 0 10px;">Nothing yet. Add below.</div>';}
   notes.forEach(function(n,ni){
-    html+='<div class="note-item"><button class="note-del" onclick="deleteNote('+ni+')">✕</button>';
+    html+='<div class="note-item"><button class="note-del" onclick="deleteNote('+ni+')">x</button>';
     if(n.type==='link'){var url=/^https?:\/\//i.test(n.value)?n.value:'https://'+n.value;html+='<a class="note-link" href="'+url+'" target="_blank">'+n.value+'</a>';}
     else{html+='<div class="note-text">'+n.value.replace(/</g,'&lt;')+'</div>';}
     if(n.date)html+='<div class="note-date">'+n.date+'</div>';
     html+='</div>';
   });
-  html+='<div class="add-area"><textarea id="note-input" placeholder="নোট লিখুন অথবা link paste করুন..."></textarea><div class="add-btns"><button class="btn-note" onclick="addNote(false)">+ নোট</button><button class="btn-link" onclick="addNote(true)">+ Link</button></div></div>';
+  html+='<div class="add-area"><textarea id="note-input" placeholder="Write note or paste link..."></textarea><div class="add-btns"><button class="btn-note" onclick="addNote(false)">+ Note</button><button class="btn-link" onclick="addNote(true)">+ Link</button></div></div>';
   body.innerHTML=html;
 }
 
@@ -376,7 +368,8 @@ function deleteNote(ni){
   saveAll();render();renderNotes();
 }
 
-/* ---- CHECKLIST ---- */
+var dragSrcIdx=null;
+
 function renderChecklist(){
   document.getElementById('cl-date').textContent=todayStr();
   var list=document.getElementById('cl-list');
@@ -388,17 +381,73 @@ function renderChecklist(){
   checklist.forEach(function(c,i){
     var div=document.createElement('div');
     div.className='cl-item'+(c.done?' done':'');
-    div.onclick=function(){checklist[i].done=!checklist[i].done;saveAll();renderChecklist();};
+    div.draggable=true;
+    div.dataset.idx=i;
 
+    // drag handle
+    var handle=document.createElement('span');
+    handle.className='drag-handle';
+    handle.textContent='::';
+    handle.title='Drag to reorder';
+    div.appendChild(handle);
+
+    // checkbox
     var box=document.createElement('div');box.className='cl-check';
-    var tick=document.createElement('span');tick.className='cl-check-tick';tick.textContent='✓';
+    var tick=document.createElement('span');tick.className='cl-check-tick';tick.textContent='v';
     box.appendChild(tick);div.appendChild(box);
 
+    // label
     var lbl=document.createElement('span');lbl.className='cl-label';lbl.textContent=c.label;div.appendChild(lbl);
 
-    var del=document.createElement('button');del.className='cl-del';del.textContent='✕';
-    del.onclick=function(e){e.stopPropagation();checklist.splice(i,1);saveAll();renderChecklist();};
+    // delete
+    var del=document.createElement('button');del.className='cl-del';del.textContent='x';
+    (function(idx){
+      del.onclick=function(e){
+        e.stopPropagation();
+        checklist.splice(idx,1);
+        saveAll();renderChecklist();
+      };
+    })(i);
     div.appendChild(del);
+
+    // toggle done on click (not on handle or del)
+    (function(idx){
+      div.onclick=function(e){
+        if(e.target.classList.contains('drag-handle'))return;
+        if(e.target.classList.contains('cl-del'))return;
+        checklist[idx].done=!checklist[idx].done;
+        saveAll();renderChecklist();
+      };
+    })(i);
+
+    // drag events
+    (function(idx){
+      div.addEventListener('dragstart',function(e){
+        dragSrcIdx=idx;
+        setTimeout(function(){div.classList.add('dragging');},0);
+        e.dataTransfer.effectAllowed='move';
+      });
+      div.addEventListener('dragend',function(){
+        div.classList.remove('dragging');
+        document.querySelectorAll('.cl-item').forEach(function(el){el.classList.remove('drag-over');});
+      });
+      div.addEventListener('dragover',function(e){
+        e.preventDefault();
+        e.dataTransfer.dropEffect='move';
+        document.querySelectorAll('.cl-item').forEach(function(el){el.classList.remove('drag-over');});
+        if(idx!==dragSrcIdx) div.classList.add('drag-over');
+      });
+      div.addEventListener('drop',function(e){
+        e.preventDefault();
+        if(dragSrcIdx===null||dragSrcIdx===idx)return;
+        var moved=checklist.splice(dragSrcIdx,1)[0];
+        var newIdx=idx>dragSrcIdx?idx-1:idx;
+        checklist.splice(newIdx,0,moved);
+        dragSrcIdx=null;
+        saveAll();renderChecklist();
+      });
+    })(i);
+
     list.appendChild(div);
   });
 }
@@ -413,13 +462,12 @@ function addClItem(){
 }
 
 function resetChecks(){
-  if(confirm('সব check উঠিয়ে দেবেন?')){
+  if(confirm('Uncheck all items?')){
     checklist.forEach(function(c){c.done=false;});
     saveAll();renderChecklist();
   }
 }
 
-/* ---- MODAL ---- */
 function openModal(idx){
   editIdx=idx;
   var item=items[idx];
@@ -428,7 +476,7 @@ function openModal(idx){
   document.getElementById('e-sub').value=item.sub||'';
   selColor=item.color||0;
   renderColorPicker();
-  document.getElementById('modal-title').textContent='ব্লক এডিট করুন';
+  document.getElementById('modal-title').textContent='Edit Block';
   document.getElementById('modal-overlay').classList.add('open');
 }
 
@@ -447,7 +495,7 @@ function closeModal(){document.getElementById('modal-overlay').classList.remove(
 
 function saveBlock(){
   var t=document.getElementById('e-title').value.trim();
-  if(!t){alert('শিরোনাম লিখুন');return;}
+  if(!t){alert('Please enter a title');return;}
   var obj={type:'block',time:document.getElementById('e-time').value,title:t,sub:document.getElementById('e-sub').value,color:selColor,notes:editIdx!==null?(items[editIdx].notes||[]):[]};
   if(editIdx===null){items.push(obj);}else{items[editIdx]=obj;}
   closeModal();saveAll();render();if(activeIdx!==null)renderNotes();
@@ -456,12 +504,12 @@ function saveBlock(){
 function addBlock(){
   editIdx=null;selColor=0;
   document.getElementById('e-time').value='';document.getElementById('e-title').value='';document.getElementById('e-sub').value='';
-  document.getElementById('modal-title').textContent='নতুন ব্লক যোগ করুন';
+  document.getElementById('modal-title').textContent='Add New Block';
   renderColorPicker();document.getElementById('modal-overlay').classList.add('open');
 }
 
 function addSection(){
-  var v=prompt('সেকশনের নাম লিখুন:');
+  var v=prompt('Section name:');
   if(v&&v.trim()){items.push({type:'section',label:v.trim()});saveAll();render();}
 }
 
